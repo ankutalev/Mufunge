@@ -78,9 +78,19 @@ namespace funge_98.ExecutionContexts
             }
         }
 
+        public override void ToggleStringMode()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Trampoline()
         {
             _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
+        }
+
+        public override void ProcessSpace()
+        {
+            throw new NotImplementedException();
         }
 
         public override void StopCurrentThread()

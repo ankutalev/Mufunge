@@ -30,8 +30,8 @@ namespace funge_98.ExecutionContexts
 
             var top = _stacks.Peek();
             var res = top.ToArray().Concat(Enumerable.Repeat(count - top.Count, 0)).ToArray();
-            
-            for (int i = 0; i < count && top.Count!=0; i++)
+
+            for (int i = 0; i < count && top.Count != 0; i++)
             {
                 top.Pop();
             }
@@ -64,14 +64,13 @@ namespace funge_98.ExecutionContexts
             var value = GetCellValue(new DeltaVector(coords[2], coords[1], coords[0]));
             PushToTopStack(value);
         }
-
-        public abstract void Trampoline();
         
+        public abstract void ToggleStringMode();
+        public abstract void Trampoline();
+        public abstract void ProcessSpace();
         public abstract void StopCurrentThread();
         protected abstract DeltaVector GetTargetModifiedCell(int x, int y, int z);
         protected abstract void ModifyCell(DeltaVector cell, int value);
         protected abstract int GetCellValue(DeltaVector cell);
-
-
     }
 }
