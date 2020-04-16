@@ -28,8 +28,14 @@ namespace funge_98.ExecutionContexts
                 _stacks.Push(new Stack<int>());
             }
 
-            var res = _stacks.Peek().ToArray().Concat(Enumerable.Repeat(count - _stacks.Count, 0)).ToArray();
-            _stacks.Peek().Clear();
+            var top = _stacks.Peek();
+            var res = top.ToArray().Concat(Enumerable.Repeat(count - top.Count, 0)).ToArray();
+            
+            for (int i = 0; i < count && top.Count!=0; i++)
+            {
+                top.Pop();
+            }
+
             return res;
         }
 
