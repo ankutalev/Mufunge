@@ -60,7 +60,7 @@ namespace funge_98.ExecutionContexts
             '9'
         };
 
-        public Befunge93(Stack<int> values) : base(SupportedCommands)
+        public Befunge93() : base(SupportedCommands)
         {
         }
 
