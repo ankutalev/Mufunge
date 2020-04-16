@@ -5,11 +5,11 @@ using funge_98.Commands;
 
 namespace funge_98.FactoriesStuff
 {
+    [ContainerElement]
     public class CommandProducer
     {
-        private Dictionary<char, Command> _commandMap;
+        private readonly Dictionary<char, Command> _commandMap;
 
-        [ContainerElement]
         public CommandProducer(List<IFactory<Command>> factories)
         {
             IEnumerable<Command> allCommands = new List<Command>();

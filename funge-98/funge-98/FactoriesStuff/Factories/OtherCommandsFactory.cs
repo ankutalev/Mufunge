@@ -14,7 +14,6 @@ namespace funge_98.FactoriesStuff.Factories
             {
                 new VerticalIfCommand('|'),
                 new ToggleStringModeCommand('"'),
-                new VerticalIfCommand('|'),
                 new KillThreadCommand('@'),
                 new PutCommand('p'),
                 new GetCommand('g'),

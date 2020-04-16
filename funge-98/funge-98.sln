@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Container", "..\Booknote\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes", "..\Booknote\Attributes\Attributes.csproj", "{F65E23CB-AC15-4945-ACD8-8D01840D08A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funge-console", "funge-console\funge-console.csproj", "{2621A692-1983-45F5-95EC-8C6E78B3FAB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F65E23CB-AC15-4945-ACD8-8D01840D08A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F65E23CB-AC15-4945-ACD8-8D01840D08A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F65E23CB-AC15-4945-ACD8-8D01840D08A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2621A692-1983-45F5-95EC-8C6E78B3FAB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2621A692-1983-45F5-95EC-8C6E78B3FAB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2621A692-1983-45F5-95EC-8C6E78B3FAB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2621A692-1983-45F5-95EC-8C6E78B3FAB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
