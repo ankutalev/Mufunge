@@ -20,6 +20,11 @@ namespace funge_98.Languages
            return _commandProducer.GetCommand(commandName).Execute(_executionContext);
         }
 
+        public void SetupField()
+        {
+            
+        }
+
          public string RunProgram()
         {
             string error = null;

@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Parsers" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\Booknote\Attributes\Attributes.csproj" />
     </ItemGroup>
 

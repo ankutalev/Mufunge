@@ -2,20 +2,23 @@ using System.Collections.Generic;
 using System.Linq;
 using funge_98.Commands;
 using funge_98.Enums;
+using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
     public abstract class FungeContext
     {
         private readonly HashSet<char> _supportedCommands;
+        protected readonly ISourceCodeParser Parser;
         private readonly Stack<Stack<int>> _stacks = new Stack<Stack<int>>();
-
-        protected FungeContext(HashSet<char> supportedCommands1)
+        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
         {
             _stacks.Push(new Stack<int>());
             _supportedCommands = supportedCommands1;
+            Parser = parser;
         }
 
+        public abstract void InitField();
         public bool IsSupported(Command command)
         {
             return _supportedCommands.Contains(command.Name);

@@ -2,11 +2,14 @@ using System;
 using System.Collections.Generic;
 using funge_98.Commands;
 using funge_98.Enums;
+using funge_98.Exceptions;
+using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
     public class Befunge93Context : FungeContext
     {
+        private char[,] _field = new char[25, 80];
         private InstructionPointer _instructionPointer = new InstructionPointer
         {
             StorageOffset = new DeltaVector(0, 0, 0),
@@ -61,10 +64,39 @@ namespace funge_98.ExecutionContexts
             '9'
         };
 
-        public Befunge93Context() : base(SupportedCommands)
+        public Befunge93Context(ISourceCodeParser parser) : base(SupportedCommands, parser)
         {
+            for (var i = 0; i < _field.GetLength(0); i++)
+            {
+                for (var j = 0; j < _field.GetLength(1); j++)
+                {
+                    _field[i, j] = ' ';
+                }
+            }
         }
 
+
+        public override void InitField()
+        {
+            var y = 0;
+            foreach (var line in Parser.GetSourceCode())
+            {
+                y++;
+                if (y > 25)
+                {
+                    throw new IncorrectFileFormatException("Befunge-93 source code file can contains only 25 lines maximum");
+                }
+
+                if (line.Length > 80)
+                {
+                    throw new IncorrectFileFormatException("Befunge-93 source code file line can contains only 80 chars");
+                }
+                for (var x = 0; x < line.Length; x++)
+                {
+                    _field[y, x] = line[x];
+                }
+            }
+        }
 
         public override void SetDeltaVector(Direction direction)
         {
@@ -81,7 +113,7 @@ namespace funge_98.ExecutionContexts
 
         public override char GetCurrentCommandName()
         {
-            throw new NotImplementedException();
+            return _field[_instructionPointer.CurrentPosition.Y, _instructionPointer.CurrentPosition.X];
         }
 
         public override void ToggleStringMode()
@@ -111,12 +143,12 @@ namespace funge_98.ExecutionContexts
 
         protected override void ModifyCell(DeltaVector cell, int value)
         {
-            throw new NotImplementedException();
+            _field[cell.Y, cell.X] = (char) value;
         }
 
         protected override int GetCellValue(DeltaVector cell)
         {
-            throw new NotImplementedException();
+            return _field[cell.Y, cell.X];
         }
     }
 }
