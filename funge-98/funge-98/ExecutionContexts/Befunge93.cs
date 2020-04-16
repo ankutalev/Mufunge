@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using funge_98.Enums;
 
 namespace funge_98.ExecutionContexts
@@ -85,6 +84,11 @@ namespace funge_98.ExecutionContexts
         }
 
         protected override void ModifyCell(DeltaVector cell, int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int GetCellValue(DeltaVector cell)
         {
             throw new NotImplementedException();
         }

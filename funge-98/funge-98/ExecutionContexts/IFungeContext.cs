@@ -52,7 +52,16 @@ namespace funge_98.ExecutionContexts
             ModifyCell(targetCell, values.Reverse().FirstOrDefault(x => x != 0));
         }
 
+        public void StorageGet()
+        {
+            var coords = GetTopStackTopValues(3);
+            var value = GetCellValue(new DeltaVector(coords[2], coords[1], coords[0]));
+            PushToTopStack(value);
+        }
+
         protected abstract DeltaVector GetTargetModifiedCell(int x, int y, int z);
         protected abstract void ModifyCell(DeltaVector cell, int value);
+
+        protected abstract int GetCellValue(DeltaVector cell);
     }
 }
