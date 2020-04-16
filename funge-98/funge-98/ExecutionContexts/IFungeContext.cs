@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using funge_98.Commands;
+using funge_98.Enums;
 
 namespace funge_98.ExecutionContexts
 {
@@ -20,5 +21,6 @@ namespace funge_98.ExecutionContexts
 
         public abstract bool GetStackTopValues(int count, out int[] values);
         public abstract void PushToStack(int value);
+        public abstract void SetDeltaVector(Direction direction);
     }
 }
