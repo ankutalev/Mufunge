@@ -1,10 +1,10 @@
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands
+namespace funge_98.Commands.Befunge93Commands
 {
-    public class SwapCommand : Command
+    public class LogicalNotCommand : Command
     {
-        public SwapCommand(char name)
+        public LogicalNotCommand(char name)
         {
             Name = name;
         }
@@ -12,12 +12,11 @@ namespace funge_98.Commands
         public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.GetStackTopValues(2, out var values))
+            if (fungeContext.GetStackTopValues(1, out var values))
             {
                 return "Stack empty!";
             }
-            fungeContext.PushToStack(values[0]);
-            fungeContext.PushToStack(values[1]);
+            fungeContext.PushToStack(values[0] == 0 ? 1 : 0 );
             return null;
         }
     }

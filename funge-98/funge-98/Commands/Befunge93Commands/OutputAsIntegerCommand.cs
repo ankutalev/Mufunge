@@ -1,11 +1,15 @@
+using System.IO;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands
+namespace funge_98.Commands.Befunge93Commands
 {
-    public class LogicalNotCommand : Command
+    public class OutputAsIntegerCommand : Command
     {
-        public LogicalNotCommand(char name)
+        private readonly StreamWriter _writer;
+
+        public OutputAsIntegerCommand(char name, StreamWriter writer)
         {
+            _writer = writer;
             Name = name;
         }
 
@@ -16,7 +20,7 @@ namespace funge_98.Commands
             {
                 return "Stack empty!";
             }
-            fungeContext.PushToStack(values[0] == 0 ? 1 : 0 );
+            _writer.Write(values[0]);
             return null;
         }
     }

@@ -1,16 +1,11 @@
-using System;
-using System.IO;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands
+namespace funge_98.Commands.Befunge93Commands
 {
-    public class OutputAsIntegerCommand : Command
+    public class DuplicateCommand : Command
     {
-        private readonly StreamWriter _writer;
-
-        public OutputAsIntegerCommand(char name, StreamWriter writer)
+        public DuplicateCommand(char name)
         {
-            _writer = writer;
             Name = name;
         }
 
@@ -21,7 +16,8 @@ namespace funge_98.Commands
             {
                 return "Stack empty!";
             }
-            _writer.Write(values[0]);
+            fungeContext.PushToStack(values[0]);
+            fungeContext.PushToStack(values[0]);
             return null;
         }
     }

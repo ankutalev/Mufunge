@@ -1,8 +1,7 @@
-using System;
 using System.IO;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands
+namespace funge_98.Commands.Befunge93Commands
 {
     public class OutputAsAsciiCommand : Command
     {
