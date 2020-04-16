@@ -8,10 +8,12 @@ namespace funge_98.Commands
         {
             if (!fungeContext.IsSupported(this))
             {
-                return $"{nameof(fungeContext)} not supporting  {Name} command";
+                return $"{fungeContext.Version} not supporting  {Name} command";
             }
-
-            return RealExecute(fungeContext);
+            
+            var error =  RealExecute(fungeContext);
+            fungeContext.MoveOnce();
+            return error;
         }
 
         public abstract char Name { get; }

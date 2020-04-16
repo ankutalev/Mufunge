@@ -13,7 +13,7 @@ namespace funge_98.FactoriesStuff.Factories
             return new List<Command>
             {
                 new GoCommand('<'),
-                new GoCommand('V'),
+                new GoCommand('v'),
                 new GoCommand('^'),
                 new GoCommand('>'),
                 new GoCommand('?')

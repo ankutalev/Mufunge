@@ -23,6 +23,8 @@ namespace funge_98.FactoriesStuff.Factories
                 new HorizontalIfCommand('_'),
                 new GreaterThanCommand('`'),
                 new LogicalNotCommand('!'),
+                new SpaceCommand(' '),
+                new SwapCommand('\\')
             };
         }
     }

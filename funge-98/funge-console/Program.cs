@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using funge_98.FactoriesStuff;
 using funge_98.Languages;
 using funge_98.Parsers;
@@ -12,7 +13,11 @@ namespace funge_console
             var kunteynir = new Container.Container(new List<string>{"funge-98"});
             var cp =  kunteynir.Resolve<CommandProducer>();
             var language = new Befunge_93(cp, new Befunge93FileParser(args[0],true)); 
-            language.RunProgram();
+            var result = language.RunProgram();
+            if (result != null)
+            {
+                Console.WriteLine($"Error : {result}");
+            }
         }
     }
 }

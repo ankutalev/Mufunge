@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using funge_98.Commands;
 using funge_98.Enums;
@@ -18,6 +19,10 @@ namespace funge_98.ExecutionContexts
             Parser = parser;
         }
 
+        public abstract string Version { get; }
+        
+        public abstract bool InterpreterAlive { get; protected set; }
+
         public abstract void InitField();
         public bool IsSupported(Command command)
         {
@@ -30,15 +35,20 @@ namespace funge_98.ExecutionContexts
             {
                 _stacks.Push(new Stack<int>());
             }
-
+        
+            var res = new int[count];
             var top = _stacks.Peek();
-            var res = top.ToArray().Concat(Enumerable.Repeat(count - top.Count, 0)).ToArray();
-
-            for (int i = 0; i < count && top.Count != 0; i++)
+            for (var i = 0; i < count; i++)
             {
-                top.Pop();
+                if (top.Count == 0)
+                {
+                    res[i] = 0;
+                }
+                else
+                {
+                    res[i] = top.Pop();
+                }
             }
-
             return res;
         }
 
@@ -67,7 +77,7 @@ namespace funge_98.ExecutionContexts
             var value = GetCellValue(new DeltaVector(coords[2], coords[1], coords[0]));
             PushToTopStack(value);
         }
-
+        public abstract void MoveOnce();
         public abstract char GetCurrentCommandName();
         public abstract void ToggleStringMode();
         public abstract void Trampoline();

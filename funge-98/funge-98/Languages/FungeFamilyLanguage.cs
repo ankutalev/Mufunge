@@ -12,6 +12,7 @@ namespace funge_98.Languages
         {
             _executionContext = executionContext;
             _commandProducer = commandProducer;
+            _executionContext.InitField();
         }
 
         public string NextTick()
@@ -20,15 +21,10 @@ namespace funge_98.Languages
            return _commandProducer.GetCommand(commandName).Execute(_executionContext);
         }
 
-        public void SetupField()
-        {
-            
-        }
-
-         public string RunProgram()
+        public string RunProgram()
         {
             string error = null;
-            while (error==null)
+            while (error==null && _executionContext.InterpreterAlive)
             {
                 error = NextTick();
             }

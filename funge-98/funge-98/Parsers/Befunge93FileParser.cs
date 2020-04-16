@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using funge_98.Exceptions;
-using funge_98.ExecutionContexts;
 
 namespace funge_98.Parsers
 {
@@ -21,7 +19,11 @@ namespace funge_98.Parsers
 
         public IEnumerable<string> GetSourceCode()
         {
-            if (!_filename.EndsWith(".bf"))
+            if (!File.Exists(_filename))
+            {
+                throw new FileNotFoundException();
+            }
+            if (_onlyStandardExtension && !_filename.EndsWith(".bf"))
             {
                 throw new IncorrectExtensionException("Befunge-93 source code file must have .bf extension.");
             }
