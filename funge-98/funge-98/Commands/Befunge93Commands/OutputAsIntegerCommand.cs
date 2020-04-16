@@ -16,10 +16,7 @@ namespace funge_98.Commands.Befunge93Commands
         public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.GetStackTopValues(1, out var values))
-            {
-                return "Stack empty!";
-            }
+            var values = fungeContext.GetStackTopValues(1);
             _writer.Write(values[0]);
             return null;
         }

@@ -19,7 +19,7 @@ namespace funge_98.ExecutionContexts
             return _supportedCommands.Contains(command.Name);
         }
 
-        public abstract bool GetStackTopValues(int count, out int[] values);
+        public abstract int[] GetStackTopValues(int count);
         public abstract void PushToStack(int value);
         public abstract void SetDeltaVector(Direction direction);
     }

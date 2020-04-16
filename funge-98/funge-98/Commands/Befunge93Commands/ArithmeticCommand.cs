@@ -17,11 +17,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.GetStackTopValues(2, out var values))
-            {
-                return "Stack empty!";
-            }
-
+            var values = fungeContext.GetStackTopValues(2);
             try
             {
                 fungeContext.PushToStack(_func(values[1], values[0]));
@@ -30,7 +26,6 @@ namespace funge_98.Commands.Befunge93Commands
             {
                 return "Divided by zero!";
             }
-
             return null;
         }
     }

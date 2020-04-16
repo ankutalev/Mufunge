@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using funge_98.Enums;
 
 namespace funge_98.ExecutionContexts
@@ -10,8 +11,8 @@ namespace funge_98.ExecutionContexts
 
         private readonly InstructionPointer _instructionPointer = new InstructionPointer
         {
-            StorageOffset = new DeltaVector(0,0,0),
-            DeltaVector =  new DeltaVector(1,0,0)
+            StorageOffset = new DeltaVector(0, 0, 0),
+            DeltaVector = new DeltaVector(1, 0, 0)
         };
 
         private readonly List<DeltaVector> _constantVectors = new List<DeltaVector>
@@ -67,23 +68,11 @@ namespace funge_98.ExecutionContexts
         }
 
 
-        public override bool GetStackTopValues(int count, out int[] values)
+        public override int[] GetStackTopValues(int count)
         {
-            if (_values.Count < count)
-            {
-                values = null;
-                _values.Clear();
-                return false;
-            }
-
-            values = new int[count];
-
-            for (var i = 0; i < count; i++)
-            {
-                values[i] = _values.Pop();
-            }
-
-            return true;
+            var res =  _values.ToArray().Concat(Enumerable.Repeat(count - _values.Count, 0)).ToArray();
+            _values.Clear();
+            return res;
         }
 
         public override void PushToStack(int value) => _values.Push(value);
