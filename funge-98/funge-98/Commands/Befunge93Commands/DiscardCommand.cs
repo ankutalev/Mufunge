@@ -13,7 +13,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.GetStackTopValues(1);
+            fungeContext.GetTopStackTopValues(1);
             return null;
         }
     }

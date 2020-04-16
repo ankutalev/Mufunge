@@ -17,7 +17,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            var values = fungeContext.GetStackTopValues(1);
+            var values = fungeContext.GetTopStackTopValues(1);
             _writer.Write((char) values[0]);
             return null;
         }

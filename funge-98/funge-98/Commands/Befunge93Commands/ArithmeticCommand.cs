@@ -12,20 +12,22 @@ namespace funge_98.Commands.Befunge93Commands
             _func = func;
             Name = name;
         }
-        
+
         public override char Name { get; }
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            var values = fungeContext.GetStackTopValues(2);
+            var values = fungeContext.GetTopStackTopValues(2);
             try
             {
-                fungeContext.PushToStack(_func(values[1], values[0]));
+                fungeContext.PushToTopStack(_func(values[1], values[0]));
             }
             catch (DivideByZeroException)
             {
+                fungeContext.PushToTopStack(0);
                 return "Divided by zero!";
             }
+
             return null;
         }
     }

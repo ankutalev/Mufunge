@@ -20,7 +20,7 @@ namespace funge_98.Commands.Befunge93Commands
             {
                 return "Can't parse Integer from user input!";
             }
-            fungeContext.PushToStack(value);
+            fungeContext.PushToTopStack(value);
             return null;
         }
     }

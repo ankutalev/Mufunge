@@ -7,8 +7,6 @@ namespace funge_98.ExecutionContexts
 {
     public class Befunge93 : FungeContext
     {
-        private readonly Stack<int> _values = new Stack<int>();
-
         private readonly InstructionPointer _instructionPointer = new InstructionPointer
         {
             StorageOffset = new DeltaVector(0, 0, 0),
@@ -63,19 +61,10 @@ namespace funge_98.ExecutionContexts
             '9'
         };
 
-        public Befunge93() : base(SupportedCommands)
+        public Befunge93(Stack<int> values) : base(SupportedCommands)
         {
         }
 
-
-        public override int[] GetStackTopValues(int count)
-        {
-            var res =  _values.ToArray().Concat(Enumerable.Repeat(count - _values.Count, 0)).ToArray();
-            _values.Clear();
-            return res;
-        }
-
-        public override void PushToStack(int value) => _values.Push(value);
 
         public override void SetDeltaVector(Direction direction)
         {
@@ -88,6 +77,16 @@ namespace funge_98.ExecutionContexts
             {
                 _instructionPointer.DeltaVector = _constantVectors[(int) direction];
             }
+        }
+
+        protected override DeltaVector GetTargetModifiedCell(int x, int y, int z)
+        {
+            return new DeltaVector(x, y, 0);
+        }
+
+        protected override void ModifyCell(DeltaVector cell, int value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
