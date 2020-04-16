@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using funge_98.Commands;
 using funge_98.Enums;
 
 namespace funge_98.ExecutionContexts
 {
-    public class Befunge93 : FungeContext
+    public class Befunge93Context : FungeContext
     {
         private InstructionPointer _instructionPointer = new InstructionPointer
         {
@@ -60,7 +61,7 @@ namespace funge_98.ExecutionContexts
             '9'
         };
 
-        public Befunge93() : base(SupportedCommands)
+        public Befunge93Context() : base(SupportedCommands)
         {
         }
 
@@ -76,6 +77,11 @@ namespace funge_98.ExecutionContexts
             {
                 _instructionPointer.DeltaVector = _constantVectors[(int) direction];
             }
+        }
+
+        public override char GetCurrentCommandName()
+        {
+            throw new NotImplementedException();
         }
 
         public override void ToggleStringMode()

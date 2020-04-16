@@ -1,18 +1,22 @@
+using System.IO;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class PushNumberCommand : Command
+    public class InputCharacterCommand : Command
     {
-        public PushNumberCommand(char name)
+        private readonly StreamReader _reader;
+
+        public InputCharacterCommand(char name, StreamReader reader)
         {
+            _reader = reader;
             Name = name;
         }
 
         public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.PushToTopStack(int.Parse(Name.ToString(), System.Globalization.NumberStyles.HexNumber));
+            fungeContext.PushToTopStack(_reader.Read());
             return null;
         }
     }

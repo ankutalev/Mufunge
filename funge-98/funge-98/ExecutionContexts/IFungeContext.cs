@@ -64,7 +64,8 @@ namespace funge_98.ExecutionContexts
             var value = GetCellValue(new DeltaVector(coords[2], coords[1], coords[0]));
             PushToTopStack(value);
         }
-        
+
+        public abstract char GetCurrentCommandName();
         public abstract void ToggleStringMode();
         public abstract void Trampoline();
         public abstract void ProcessSpace();

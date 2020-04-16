@@ -3,11 +3,11 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class PushCharacterCommand : Command
+    public class InputIntegerCommand : Command
     {
         private readonly StreamReader _reader;
 
-        public PushCharacterCommand(char name, StreamReader reader)
+        public InputIntegerCommand(char name, StreamReader reader)
         {
             _reader = reader;
             Name = name;
@@ -16,7 +16,11 @@ namespace funge_98.Commands.Befunge93Commands
         public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.PushToTopStack(_reader.Read());
+            if (!int.TryParse(_reader.ReadLine(), out var value))
+            {
+                return "Can't parse Integer from user input!";
+            }
+            fungeContext.PushToTopStack(value);
             return null;
         }
     }
