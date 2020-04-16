@@ -2,9 +2,9 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class ToggleStringMode : Command
+    public class ToggleStringModeCommand : Command
     {
-        public ToggleStringMode(char name)
+        public ToggleStringModeCommand(char name)
         {
             Name = name;
         }
