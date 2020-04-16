@@ -65,9 +65,13 @@ namespace funge_98.ExecutionContexts
             PushToTopStack(value);
         }
 
+        public abstract void Trampoline();
+        
+        public abstract void StopCurrentThread();
         protected abstract DeltaVector GetTargetModifiedCell(int x, int y, int z);
         protected abstract void ModifyCell(DeltaVector cell, int value);
-
         protected abstract int GetCellValue(DeltaVector cell);
+
+
     }
 }

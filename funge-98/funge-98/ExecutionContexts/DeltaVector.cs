@@ -12,5 +12,10 @@ namespace funge_98.ExecutionContexts
             Y = y;
             Z = z;
         }
+
+        public static DeltaVector operator +(DeltaVector a, DeltaVector b)
+        {
+            return new DeltaVector(a.X + b.X, a.Y + b.Y, a.Z + a.Z);
+        }
     }
 }

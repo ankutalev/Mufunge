@@ -6,7 +6,7 @@ namespace funge_98.ExecutionContexts
 {
     public class Befunge93 : FungeContext
     {
-        private readonly InstructionPointer _instructionPointer = new InstructionPointer
+        private InstructionPointer _instructionPointer = new InstructionPointer
         {
             StorageOffset = new DeltaVector(0, 0, 0),
             DeltaVector = new DeltaVector(1, 0, 0)
@@ -76,6 +76,16 @@ namespace funge_98.ExecutionContexts
             {
                 _instructionPointer.DeltaVector = _constantVectors[(int) direction];
             }
+        }
+
+        public override void Trampoline()
+        {
+            _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
+        }
+
+        public override void StopCurrentThread()
+        {
+            _instructionPointer = null; //todo think about it
         }
 
         protected override DeltaVector GetTargetModifiedCell(int x, int y, int z)
