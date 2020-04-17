@@ -12,19 +12,19 @@ namespace funge_98.FactoriesStuff.Factories
         {
             return new List<Command>
             {
-                new VerticalIfCommand('|'),
-                new ToggleStringModeCommand('"'),
-                new KillThreadCommand('@'),
-                new PutCommand('p'),
-                new GetCommand('g'),
-                new BridgeCommand('#'),
-                new DiscardCommand('$'),
-                new DuplicateCommand(':'),
-                new HorizontalIfCommand('_'),
-                new GreaterThanCommand('`'),
-                new LogicalNotCommand('!'),
-                new SpaceCommand(' '),
-                new SwapCommand('\\')
+                new VerticalIfCommand(),
+                new ToggleStringModeCommand(),
+                new KillThreadCommand(),
+                new PutCommand(),
+                new GetCommand(),
+                new BridgeCommand(),
+                new DiscardCommand(),
+                new DuplicateCommand(),
+                new HorizontalIfCommand(),
+                new GreaterThanCommand(),
+                new LogicalNotCommand(),
+                new SpaceCommand(),
+                new SwapCommand()
             };
         }
     }

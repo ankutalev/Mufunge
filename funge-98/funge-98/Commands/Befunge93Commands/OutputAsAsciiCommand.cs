@@ -7,13 +7,12 @@ namespace funge_98.Commands.Befunge93Commands
     {
         private readonly StreamWriter _writer;
 
-        public OutputAsAsciiCommand(char name, StreamWriter writer)
+        public OutputAsAsciiCommand(StreamWriter writer)
         {
             _writer = writer;
-            Name = name;
         }
 
-        public override char Name { get; }
+        public override char Name { get; } = ',';
 
         protected override string RealExecute(FungeContext fungeContext)
         {

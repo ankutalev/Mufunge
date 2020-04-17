@@ -5,16 +5,12 @@ namespace funge_98.Commands.Befunge93Commands
 {
     public class HorizontalIfCommand : Command
     {
-        public HorizontalIfCommand(char name)
-        {
-            Name = name;
-        }
+        public override char Name { get; } = '_';
 
-        public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
             var value = fungeContext.GetTopStackTopValues(1)[0];
-            fungeContext.SetDeltaVector(value==0? Direction.EAST : Direction.WEST);
+            fungeContext.SetDeltaVector(value == 0 ? Direction.EAST : Direction.WEST);
             return null;
         }
     }

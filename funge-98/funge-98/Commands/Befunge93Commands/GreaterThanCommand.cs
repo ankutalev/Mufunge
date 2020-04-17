@@ -4,12 +4,7 @@ namespace funge_98.Commands.Befunge93Commands
 {
     public class GreaterThanCommand : Command
     {
-        public GreaterThanCommand(char name)
-        {
-            Name = name;
-        }
-
-        public override char Name { get; }
+        public override char Name { get; } = '`';
 
         protected override string RealExecute(FungeContext fungeContext)
         {

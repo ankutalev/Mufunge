@@ -5,12 +5,7 @@ namespace funge_98.Commands.Befunge93Commands
 {
     public class VerticalIfCommand : Command
     {
-        public VerticalIfCommand(char name)
-        {
-            Name = name;
-        }
-
-        public override char Name { get; }
+        public override char Name { get; } = '|';
 
         protected override string RealExecute(FungeContext fungeContext)
         {

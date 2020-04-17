@@ -12,17 +12,14 @@ namespace funge_98.FactoriesStuff.Factories
     {
         public IEnumerable<Command> CreateProducts()
         {
-            //todo are set methods required?
             var sw = new StreamWriter(Console.OpenStandardOutput()) {AutoFlush = true};
-            Console.SetOut(sw);
             var sr = new StreamReader(Console.OpenStandardInput());
-            Console.SetIn(sr);
             return new List<Command>
             {
-                new OutputAsAsciiCommand(',',sw),
-                new OutputAsIntegerCommand('.',sw),
-                new InputCharacterCommand('~',sr),
-                new InputIntegerCommand('&',sr),
+                new OutputAsAsciiCommand(sw),
+                new OutputAsIntegerCommand(sw),
+                new InputCharacterCommand(sr),
+                new InputIntegerCommand(sr),
             };
         }
     }

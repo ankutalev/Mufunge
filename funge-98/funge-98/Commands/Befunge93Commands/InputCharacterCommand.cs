@@ -7,13 +7,13 @@ namespace funge_98.Commands.Befunge93Commands
     {
         private readonly StreamReader _reader;
 
-        public InputCharacterCommand(char name, StreamReader reader)
+        public InputCharacterCommand(StreamReader reader)
         {
             _reader = reader;
-            Name = name;
         }
 
-        public override char Name { get; }
+        public override char Name { get; } = '~';
+
         protected override string RealExecute(FungeContext fungeContext)
         {
             fungeContext.PushToTopStack(_reader.Read());

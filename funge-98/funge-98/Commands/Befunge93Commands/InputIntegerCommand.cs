@@ -7,13 +7,13 @@ namespace funge_98.Commands.Befunge93Commands
     {
         private readonly StreamReader _reader;
 
-        public InputIntegerCommand(char name, StreamReader reader)
+        public InputIntegerCommand(StreamReader reader)
         {
             _reader = reader;
-            Name = name;
         }
 
-        public override char Name { get; }
+        public override char Name { get; } = '&';
+
         protected override string RealExecute(FungeContext fungeContext)
         {
             if (!int.TryParse(_reader.ReadLine(), out var value))
