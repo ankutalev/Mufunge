@@ -1,4 +1,5 @@
 using System.Linq;
+using funge_98.Enums;
 
 namespace funge_98.ExecutionContexts
 {
@@ -32,6 +33,21 @@ namespace funge_98.ExecutionContexts
         public DeltaVector(int[] coords)
         {
             _coords = coords;
+        }
+
+        public DeltaVector Rotate(Direction dir)
+        {
+            return dir switch
+            {
+                Direction.EAST => new DeltaVector(-Y, X, Z),
+                Direction.WEST => new DeltaVector(Y, -X, Z),
+                _ => null
+            };
+        }
+
+        public DeltaVector Reflect()
+        {
+            return new DeltaVector(_coords.Select(x=>-x).ToArray());
         }
 
         public static DeltaVector operator +(DeltaVector a, DeltaVector b)

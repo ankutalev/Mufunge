@@ -82,6 +82,12 @@ namespace funge_98.ExecutionContexts
         public override int Dimension { get; } = 2;
         public override bool InterpreterAlive { get; protected set; } = true;
 
+        public override DeltaVector CurrentDirectionVector
+        {
+            get => _instructionPointer.DeltaVector;
+            set => _instructionPointer.DeltaVector = value;
+        }
+
         public override void InitField()
         {
             var y = 0;
@@ -124,15 +130,15 @@ namespace funge_98.ExecutionContexts
         public override void MoveOnce()
         {
             _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
-            _instructionPointer.CurrentPosition.X =  (_instructionPointer.CurrentPosition.X +80) % 80;
-            _instructionPointer.CurrentPosition.Y  = (_instructionPointer.CurrentPosition.Y +25) % 25;
+            _instructionPointer.CurrentPosition.X = (_instructionPointer.CurrentPosition.X + 80) % 80;
+            _instructionPointer.CurrentPosition.Y = (_instructionPointer.CurrentPosition.Y + 25) % 25;
         }
 
         public override char GetCurrentCommandName()
         {
             return _field[_instructionPointer.CurrentPosition.Y, _instructionPointer.CurrentPosition.X];
         }
-        
+
         public override void Trampoline()
         {
             _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
@@ -146,7 +152,7 @@ namespace funge_98.ExecutionContexts
         {
             InterpreterAlive = false;
         }
-        
+
         protected override void ModifyCell(DeltaVector cell, int value)
         {
             _field[cell.Y, cell.X] = (char) value;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using funge_98.Commands;
 using funge_98.Enums;
@@ -12,6 +11,7 @@ namespace funge_98.ExecutionContexts
         private readonly HashSet<char> _supportedCommands;
         protected readonly ISourceCodeParser Parser;
         private readonly Stack<Stack<int>> _stacks = new Stack<Stack<int>>();
+
         protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
         {
             _stacks.Push(new Stack<int>());
@@ -20,12 +20,14 @@ namespace funge_98.ExecutionContexts
         }
 
         public abstract string Version { get; }
-        
+
         public abstract int Dimension { get; }
 
         public abstract bool InterpreterAlive { get; protected set; }
+        public abstract DeltaVector CurrentDirectionVector { get; set; }
 
         public abstract void InitField();
+
         public bool IsSupported(Command command)
         {
             return _supportedCommands.Contains(command.Name);
@@ -37,7 +39,7 @@ namespace funge_98.ExecutionContexts
             {
                 _stacks.Push(new Stack<int>());
             }
-        
+
             var res = new int[count];
             var top = _stacks.Peek();
             for (var i = 0; i < count; i++)
@@ -51,6 +53,7 @@ namespace funge_98.ExecutionContexts
                     res[i] = top.Pop();
                 }
             }
+
             return res;
         }
 
@@ -79,8 +82,15 @@ namespace funge_98.ExecutionContexts
             var value = GetCellValue(new DeltaVector(coords.Reverse().ToArray()));
             PushToTopStack(value);
         }
+
         public abstract void MoveOnce();
         public abstract char GetCurrentCommandName();
+
+        public void ClearTopStack()
+        {
+            if (_stacks.Count != 0)
+                _stacks.Pop();
+        }
 
         public void ToggleStringMode()
         {
@@ -88,11 +98,12 @@ namespace funge_98.ExecutionContexts
             {
                 MoveOnce();
                 var c = GetCurrentCommandName();
-                if (c=='"')
+                if (c == '"')
                     break;
                 PushToTopStack(c);
             }
         }
+
         public abstract void Trampoline();
         public abstract void ProcessSpace();
         public abstract void StopCurrentThread();
