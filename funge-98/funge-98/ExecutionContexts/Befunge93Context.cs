@@ -154,6 +154,8 @@ namespace funge_98.ExecutionContexts
 
         protected override int GetCellValue(DeltaVector cell)
         {
+            if (cell.Y >= 25 || cell.Y < 0 || cell.X < 0 || cell.X >= 80)
+                return 0;
             return _field[cell.Y, cell.X];
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using funge_98.ExecutionContexts;
 using funge_98.FactoriesStuff;
 
@@ -19,7 +18,6 @@ namespace funge_98.Languages
         public string NextTick()
         {
            var commandName = _executionContext.GetCurrentCommandName();
-           // Console.WriteLine($"executiong {commandName}");
            return _commandProducer.GetCommand(commandName).Execute(_executionContext);
           
         }
