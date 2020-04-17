@@ -21,6 +21,8 @@ namespace funge_98.ExecutionContexts
 
         public abstract string Version { get; }
         
+        public abstract int Dimension { get; }
+
         public abstract bool InterpreterAlive { get; protected set; }
 
         public abstract void InitField();
@@ -66,24 +68,34 @@ namespace funge_98.ExecutionContexts
 
         public void StoragePut()
         {
-            var values = GetTopStackTopValues(4);
-            var targetCell = GetTargetModifiedCell(values[2], values[1], values[0]);
-            ModifyCell(targetCell, values.Reverse().FirstOrDefault(x => x != 0));
+            var values = GetTopStackTopValues(Dimension + 1);
+            var targetCell = new DeltaVector(values.Reverse().Skip(1).ToArray());
+            ModifyCell(targetCell, values.Last());
         }
 
         public void StorageGet()
         {
-            var coords = GetTopStackTopValues(3);
-            var value = GetCellValue(new DeltaVector(coords[2], coords[1], coords[0]));
+            var coords = GetTopStackTopValues(Dimension);
+            var value = GetCellValue(new DeltaVector(coords.Reverse().ToArray()));
             PushToTopStack(value);
         }
         public abstract void MoveOnce();
         public abstract char GetCurrentCommandName();
-        public abstract void ToggleStringMode();
+
+        public void ToggleStringMode()
+        {
+            while (true)
+            {
+                MoveOnce();
+                var c = GetCurrentCommandName();
+                if (c=='"')
+                    break;
+                PushToTopStack(c);
+            }
+        }
         public abstract void Trampoline();
         public abstract void ProcessSpace();
         public abstract void StopCurrentThread();
-        protected abstract DeltaVector GetTargetModifiedCell(int x, int y, int z);
         protected abstract void ModifyCell(DeltaVector cell, int value);
         protected abstract int GetCellValue(DeltaVector cell);
     }
