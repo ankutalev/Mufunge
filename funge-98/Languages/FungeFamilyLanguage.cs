@@ -14,7 +14,7 @@ namespace funge_98.Languages
             _commandProducer = commandProducer;
             _executionContext.InitField();
         }
-        
+
         public int Tick { get; set; }
 
         public string NextStep()
@@ -23,19 +23,23 @@ namespace funge_98.Languages
             foreach (var thread in _executionContext.Threads)
             {
                 var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
-                _commandProducer.GetCommand(commandName).Execute(_executionContext);
+                var command = _commandProducer.GetCommand(commandName);
+                command.Execute(_executionContext);
+                if (command.CanTick)
+                    Tick += 1;
             }
-            Tick += 1;
+
             return null;
         }
 
         public string RunProgram()
         {
             string error = null;
-            while (error==null && _executionContext.InterpreterAlive)
+            while (error == null && _executionContext.InterpreterAlive)
             {
                 error = NextStep();
             }
+
             return error;
         }
     }

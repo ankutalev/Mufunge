@@ -18,6 +18,8 @@ namespace funge_98.Commands
 
         public abstract char Name { get; }
 
+        public virtual bool CanTick => true;
+
         protected abstract string RealExecute(FungeContext fungeContext);
     }
 }

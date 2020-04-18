@@ -11,5 +11,7 @@ namespace funge_98.Commands.Befunge93Commands
             fungeContext.ProcessSpace();
             return null;
         }
+
+        public override bool CanTick => false;
     }
 }
