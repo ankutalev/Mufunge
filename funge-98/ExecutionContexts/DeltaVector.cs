@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using funge_98.Enums;
 
@@ -5,7 +6,7 @@ namespace funge_98.ExecutionContexts
 {
     public class DeltaVector
     {
-        private readonly int[] _coords;
+        private int[] _coords;
 
         public int X
         {
@@ -23,6 +24,12 @@ namespace funge_98.ExecutionContexts
         {
             get => _coords[2];
             set => _coords[2] = value;
+        }
+
+        public IEnumerable<int> Coords
+        {
+            get => _coords;
+            set => _coords = value.ToArray();
         }
 
         public DeltaVector(int x, int y, int z)

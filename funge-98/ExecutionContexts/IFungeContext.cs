@@ -13,6 +13,8 @@ namespace funge_98.ExecutionContexts
         internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
 
         internal List<InstructionPointer> Threads { get; set; }
+        
+        internal InstructionPointer CurrentThread { get; set; }
 
         protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
         {
