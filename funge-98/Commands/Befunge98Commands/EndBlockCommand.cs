@@ -12,7 +12,7 @@ namespace funge_98.Commands.Befunge98Commands
             _reflectDirectionCommand = reflectDirectionCommand;
         }
 
-        public override char Name { get; } = '{';
+        public override char Name { get; } = '}';
 
         protected override string RealExecute(FungeContext fungeContext)
         {

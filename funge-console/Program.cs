@@ -12,7 +12,7 @@ namespace funge_console
         {
             var kunteynir = new Container.Container(new List<string>{"funge-98"});
             var cp =  kunteynir.Resolve<CommandProducer>();
-            var language = new Befunge_93(cp, new Befunge93FileParser(args[0],true)); 
+            var language = new Befunge_98(cp, new Befunge98FileParser(args[0],true)); 
             var result = language.RunProgram();
             if (result != null)
             {

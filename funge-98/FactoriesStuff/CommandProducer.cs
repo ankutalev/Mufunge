@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Attributes;
 using funge_98.Commands;
+using funge_98.FactoriesStuff.Factories;
 
 namespace funge_98.FactoriesStuff
 {
@@ -10,12 +11,9 @@ namespace funge_98.FactoriesStuff
     {
         private readonly Dictionary<char, Command> _commandMap;
 
-        public CommandProducer(List<IFactory<Command>> factories)
+        public CommandProducer(Funge98CommandsFactory factory)
         {
-            IEnumerable<Command> allCommands = new List<Command>();
-            _commandMap = factories
-                .Aggregate(allCommands, (current, factory) => current.Concat(factory.CreateProducts()))
-                .ToDictionary(c => c.Name);
+            _commandMap = factory.CreateProducts().ToDictionary(c=>c.Name);
         }
 
         public Command GetCommand(int name)

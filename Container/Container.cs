@@ -57,7 +57,7 @@ namespace Container
             Debug.Assert(ctor != null, nameof(ctor) + " != null");
             var ctorParams = ctor.GetParameters();
             _foundedByResolving.Add(t);
-            ResolvingDependencies(ctorParams.ToList());
+            ResolvingDependencies(ctorParams.ToList(), t);
             _foundedByResolving.Clear();
 
             // or select where Select.ctorParams=>param.ParameterType,contains(object key?);
@@ -69,7 +69,7 @@ namespace Container
             return obj;
         }
 
-        private void ResolvingDependencies([NotNull] List<ParameterInfo> dependencies)
+        private void ResolvingDependencies([NotNull] List<ParameterInfo> dependencies, Type type)
         {
             dependencies.ForEach(dependency =>
             {
@@ -83,7 +83,7 @@ namespace Container
                 if (dependency.ParameterType.IsGenericType &&
                     dependency.ParameterType.GetGenericTypeDefinition() == typeof(List<>))
                 {
-                    ConstructGenericList(dependency.ParameterType);
+                    ConstructGenericList(dependency.ParameterType, type);
                 }
                 else
                 {
@@ -92,17 +92,17 @@ namespace Container
             });
         }
 
-        private void ConstructGenericList([NotNull]Type genericType)
+        private void ConstructGenericList([NotNull]Type genericType, Type originType)
         {
             var instance = (IList) Activator.CreateInstance(genericType);
             Debug.Assert(instance != null, nameof(instance) + " != null");
             Debug.Assert(genericType.GenericTypeArguments != null, "genericType.GenericTypeArguments != null");
             var parentType = genericType.GenericTypeArguments[0];
             var childrenTypes = (from type in _markedTypes
-                where type.GetInterfaces().Contains(parentType)
+                where type.GetInterfaces().Contains(parentType) && type!= originType
                 select type).ToList();
 
-            childrenTypes.ForEach(childType =>
+            foreach (var childType in childrenTypes)
             {
                 if (_alreadyCreated.TryGetValue(childType ?? throw new ArgumentNullException(nameof(childType)), out var child))
                 {
@@ -112,9 +112,11 @@ namespace Container
                 {
                     var obj = ConstructByType(childType);
                     instance.Add(obj);
-                    _alreadyCreated[childType] = obj;
+                    if (!_alreadyCreated.ContainsKey(childType))
+                        _alreadyCreated[childType] = obj;
                 }
-            });
+            }
+
             _alreadyCreated[genericType] = instance;
         }
 
