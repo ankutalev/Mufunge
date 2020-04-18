@@ -85,7 +85,8 @@ namespace funge_98.ExecutionContexts
                 IsConcurrent = OptionStatus.NotSupported,
                 IsInputFileSupported = OptionStatus.NotSupported,
                 IsOutputFileSupported = OptionStatus.NotSupported,
-                IsSystemCallSupported = OptionStatus.NotSupported
+                IsSystemCallSupported = OptionStatus.NotSupported,
+                UnimplementedPolicy = UnimplementedPolicy.WarnUser
             };
             set { }
         }

@@ -64,5 +64,7 @@ namespace funge_98.ExecutionContexts
                 _warnIfCommandNotSupported = value;
             }
         }
+
+        public UnimplementedPolicy UnimplementedPolicy { get; set; }
     }
 }
