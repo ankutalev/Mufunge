@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Booknote\Container\Container.csproj" />
+      <ProjectReference Include="..\Container\Container.csproj" />
       <ProjectReference Include="..\funge-98\funge-98.csproj" />
     </ItemGroup>
 

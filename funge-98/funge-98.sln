@@ -1,12 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funge-gui", "funge-gui\funge-gui.csproj", "{7001B879-EA9E-470C-BFF8-A141395E991A}"
-EndProject
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funge-98", "funge-98\funge-98.csproj", "{133DEE8B-EAAB-45B2-9CCE-D2CA5445FE0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Container", "..\Booknote\Container\Container.csproj", "{62AFC035-575D-474E-A530-D6FD3387C1FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Container", "Container\Container.csproj", "{62AFC035-575D-474E-A530-D6FD3387C1FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes", "..\Booknote\Attributes\Attributes.csproj", "{F65E23CB-AC15-4945-ACD8-8D01840D08A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attributes", "Attributes\Attributes.csproj", "{F65E23CB-AC15-4945-ACD8-8D01840D08A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "funge-console", "funge-console\funge-console.csproj", "{2621A692-1983-45F5-95EC-8C6E78B3FAB8}"
 EndProject

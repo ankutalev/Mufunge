@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Booknote\Attributes\Attributes.csproj" />
+      <ProjectReference Include="..\Attributes\Attributes.csproj" />
     </ItemGroup>
 
 </Project>
