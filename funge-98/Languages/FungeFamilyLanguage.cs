@@ -22,7 +22,7 @@ namespace funge_98.Languages
             //todo need think about it
             foreach (var thread in _executionContext.Threads)
             {
-                var commandName = _executionContext.GetCurrentCommandName();
+                var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
                 _commandProducer.GetCommand(commandName).Execute(_executionContext);
             }
             Tick += 1;

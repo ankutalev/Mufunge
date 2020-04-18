@@ -18,9 +18,9 @@ namespace funge_98.FactoriesStuff
                 .ToDictionary(c => c.Name);
         }
 
-        public Command GetCommand(char name)
+        public Command GetCommand(int name)
         {
-            return _commandMap[name];
+            return _commandMap[(char) name];
         }
     }
 }

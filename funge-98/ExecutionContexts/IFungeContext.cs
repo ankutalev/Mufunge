@@ -102,25 +102,42 @@ namespace funge_98.ExecutionContexts
             PushToTopStack(value);
         }
 
-        public abstract void MoveOnce();
-        public abstract char GetCurrentCommandName();
+        public void MoveOnce()
+        {
+            CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
+            if (!PositionOutOfBounds(CurrentThread.CurrentPosition)) 
+                return;
+            
+            CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
+            do
+            {
+                CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
+            }
+            while (!PositionOutOfBounds(CurrentThread.CurrentPosition));
+
+            CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
+            CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
+
+
+        }
+
+        protected abstract bool PositionOutOfBounds(DeltaVector currentPosition);
 
         public void ToggleStringMode()
         {
             while (true)
             {
                 MoveOnce();
-                var c = GetCurrentCommandName();
+                var c = GetCellValue(CurrentThread.CurrentPosition);
                 if (c == '"')
                     break;
                 PushToTopStack(c);
             }
         }
 
-        public abstract void Trampoline();
         public abstract void ProcessSpace();
-        public abstract void StopCurrentThread();
+        public void StopCurrentThread() => CurrentThread.Alive = false;
         protected abstract void ModifyCell(DeltaVector cell, int value);
-        protected abstract int GetCellValue(DeltaVector cell);
+        public abstract int GetCellValue(DeltaVector cell);
     }
 }

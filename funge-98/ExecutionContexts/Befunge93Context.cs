@@ -69,7 +69,11 @@ namespace funge_98.ExecutionContexts
             }
         }
 
-        internal override List<InstructionPointer> Threads { get => new List<InstructionPointer>{ CurrentThread}; set {} }
+        internal override List<InstructionPointer> Threads
+        {
+            get => new List<InstructionPointer> {CurrentThread};
+            set { }
+        }
 
         public override CustomSettings Settings
         {
@@ -87,6 +91,7 @@ namespace funge_98.ExecutionContexts
 
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
+
         public override void InitField()
         {
             var y = 0;
@@ -112,42 +117,25 @@ namespace funge_98.ExecutionContexts
                 y++;
             }
         }
-        public override void MoveOnce()
-        {
-            CurrentThread.CurrentPosition += CurrentThread.DeltaVector;
-            CurrentThread.CurrentPosition.X = (CurrentThread.CurrentPosition.X + 80) % 80;
-            CurrentThread.CurrentPosition.Y = (CurrentThread.CurrentPosition.Y + 25) % 25;
-        }
 
-        public override char GetCurrentCommandName()
+        protected override bool PositionOutOfBounds(DeltaVector currentPosition)
         {
-            return _field[CurrentThread.CurrentPosition.Y, CurrentThread.CurrentPosition.X];
-        }
-
-        public override void Trampoline()
-        {
-            CurrentThread.CurrentPosition += CurrentThread.DeltaVector;
+            return currentPosition.X < 0 || currentPosition.X >= 80 || currentPosition.Y < 0 || currentPosition.Y >= 25;
         }
 
         public override void ProcessSpace()
         {
         }
 
-        public override void StopCurrentThread()
-        {
-            InterpreterAlive = false;
-        }
 
         protected override void ModifyCell(DeltaVector cell, int value)
         {
             _field[cell.Y, cell.X] = (char) value;
         }
 
-        protected override int GetCellValue(DeltaVector cell)
+        public override int GetCellValue(DeltaVector cell)
         {
-            if (cell.Y >= 25 || cell.Y < 0 || cell.X < 0 || cell.X >= 80)
-                return 0;
-            return _field[cell.Y, cell.X];
+            return PositionOutOfBounds(cell) ? 0 : _field[cell.Y, cell.X];
         }
     }
 }

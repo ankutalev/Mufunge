@@ -8,7 +8,7 @@ namespace funge_98.Commands.Befunge98Commands
         protected override string RealExecute(FungeContext fungeContext)
         {
             fungeContext.MoveOnce();
-            var fetched = fungeContext.GetCurrentCommandName();
+            var fetched = fungeContext.GetCellValue(fungeContext.CurrentThread.CurrentPosition);
             fungeContext.PushToTopStack(fetched);
             return null;
         }

@@ -8,7 +8,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.Trampoline();
+            fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThread.DeltaVector;
             return null;
         }
     }
