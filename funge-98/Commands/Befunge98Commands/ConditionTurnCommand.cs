@@ -13,7 +13,7 @@ namespace funge_98.Commands.Befunge98Commands
                 return null;
             
             var currentDelta = fungeContext.CurrentDirectionVector;
-            fungeContext.CurrentDirectionVector = currentDelta.Rotate(values[1] > values[0] ? Direction.EAST : Direction.WEST);
+            fungeContext.CurrentDirectionVector = currentDelta.Rotate(values[1] > values[0] ? Direction.East : Direction.West);
             return null;
         }
     }

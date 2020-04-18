@@ -19,8 +19,11 @@ namespace funge_98.ExecutionContexts
             Parser = parser;
         }
 
-        public abstract string Version { get; }
+        public int Ticks { get; private set; } = 1;
 
+        public abstract CustomSettings Settings { get; set; }
+
+        public abstract string Version { get; }
         public abstract int Dimension { get; }
 
         public abstract bool InterpreterAlive { get; protected set; }

@@ -77,6 +77,18 @@ namespace funge_98.ExecutionContexts
             }
         }
 
+        public override CustomSettings Settings
+        {
+            get => new CustomSettings
+            {
+                WarnIfCommandNotSupported = OptionStatus.NotSupported,
+                IsConcurrent = OptionStatus.NotSupported,
+                IsInputFileSupported = OptionStatus.NotSupported,
+                IsOutputFileSupported = OptionStatus.NotSupported,
+                IsSystemCallSupported = OptionStatus.NotSupported
+            };
+            set { }
+        }
 
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
@@ -116,7 +128,7 @@ namespace funge_98.ExecutionContexts
 
         public override void SetDeltaVector(Direction direction)
         {
-            if (direction == Direction.RANDOM)
+            if (direction == Direction.Random)
             {
                 var r = new Random();
                 _instructionPointer.DeltaVector = _constantVectors[r.Next(0, 4)];

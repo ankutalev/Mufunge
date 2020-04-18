@@ -39,8 +39,8 @@ namespace funge_98.ExecutionContexts
         {
             return dir switch
             {
-                Direction.EAST => new DeltaVector(-Y, X, Z),
-                Direction.WEST => new DeltaVector(Y, -X, Z),
+                Direction.East => new DeltaVector(-Y, X, Z),
+                Direction.West => new DeltaVector(Y, -X, Z),
                 _ => null
             };
         }

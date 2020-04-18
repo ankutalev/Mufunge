@@ -8,11 +8,11 @@ namespace funge_98.Commands.Befunge93Commands
     {
         private readonly Dictionary<char, Direction> _directions = new Dictionary<char, Direction>
         {
-            {'<', Direction.WEST},
-            {'>', Direction.EAST},
-            {'^', Direction.NORTH},
-            {'v', Direction.SOUTH},
-            {'?', Direction.RANDOM}
+            {'<', Direction.West},
+            {'>', Direction.East},
+            {'^', Direction.North},
+            {'v', Direction.South},
+            {'?', Direction.Random}
         };
 
         public GoCommand(char name)

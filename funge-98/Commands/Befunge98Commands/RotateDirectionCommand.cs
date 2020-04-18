@@ -8,8 +8,8 @@ namespace funge_98.Commands.Befunge98Commands
     {
         private readonly Dictionary<char, Direction> _nameToDirection = new Dictionary<char, Direction>
         {
-            {'[', Direction.WEST},
-            {']', Direction.EAST},
+            {'[', Direction.West},
+            {']', Direction.East},
         };
 
         public RotateDirectionCommand(char name)
