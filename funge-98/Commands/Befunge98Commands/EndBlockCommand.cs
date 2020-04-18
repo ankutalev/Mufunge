@@ -24,8 +24,7 @@ namespace funge_98.Commands.Befunge98Commands
 
             //get n values from toss
             var n = fungeContext.GetTopStackTopValues(1)[0];
-            var values = fungeContext.GetTopStackTopValues(n);
-            
+            var values = n > 0 ? fungeContext.GetTopStackTopValues(n) : new int[0];
             //remove toss
             fungeContext.Stacks.Pop();
             
@@ -40,7 +39,7 @@ namespace funge_98.Commands.Befunge98Commands
             }
             else
             {
-                foreach (var value in values)
+                foreach (var value in values.Reverse())
                 {
                     fungeContext.Stacks.Peek().Push(value);
                 }

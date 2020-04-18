@@ -26,7 +26,7 @@ namespace funge_98.ExecutionContexts
             set => _coords[2] = value;
         }
 
-        public IEnumerable<int> Coords
+        public int[] Coords
         {
             get => _coords;
             set => _coords = value.ToArray();

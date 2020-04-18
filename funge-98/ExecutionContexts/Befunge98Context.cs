@@ -134,7 +134,23 @@ namespace funge_98.ExecutionContexts
 
         protected override void ModifyCell(DeltaVector cell, int value)
         {
-            _field[cell.Y][cell.X] =  value;
+            //todo ))))))))))) nu i nasral
+            var targetY = cell.Y;
+            var targetX = cell.X;
+
+            while (targetY < 0)
+            {
+                targetY += _field.Length;
+            }
+            targetY %= _field.Length;
+            
+            while (targetX < 0)
+            {
+                targetX += _field[targetY].Length;
+            }
+            targetX %= _field[targetY].Length;
+            
+            _field[targetY][targetX] =  value;
         }
 
         public override int GetCellValue(DeltaVector cell)

@@ -15,7 +15,6 @@ namespace funge_98.Commands.Befunge98Commands
                 fungeContext.MoveOnce();
             } while (fungeContext.GetCellValue(fungeContext.CurrentThread.CurrentPosition) != Name);
 
-            fungeContext.MoveOnce();
             return null;
         }
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
@@ -8,7 +9,9 @@ namespace funge_98.Commands.Befunge93Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.StoragePut();
+            var values = fungeContext.GetTopStackTopValues(fungeContext.Dimension + 1);
+            var targetCell = new DeltaVector(values.Reverse().Skip(1).ToArray()) + fungeContext.CurrentThread.StorageOffset;
+            fungeContext.StoragePut(targetCell,values.Last());
             return null;
         }
     }

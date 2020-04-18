@@ -16,14 +16,20 @@ namespace funge_98.Commands.Befunge98Commands
         protected override string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
+            if (n == 0)
+            {
+                fungeContext.MoveOnce();
+                return null;
+            }
             if (n < 0)
             {
                 return "k command behavior not specified when n is negative";
             }
 
+            var nextPos = fungeContext.CurrentThread.CurrentPosition;
             while (true)
             {
-                var nextPos = fungeContext.CurrentThread.CurrentPosition + fungeContext.CurrentThreadDeltaVector;
+                nextPos += fungeContext.CurrentThreadDeltaVector;
                 var nextCommand = fungeContext.GetCellValue(nextPos);
                 if (nextCommand == ';' || nextCommand == ' ') 
                     continue;
@@ -31,8 +37,8 @@ namespace funge_98.Commands.Befunge98Commands
                 for (int i = 0; i < n; i++)
                 {
                     command.Execute(fungeContext);
+                    fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThreadDeltaVector.Reflect();
                 }
-
                 return null;
             }
         }

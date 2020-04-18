@@ -88,11 +88,9 @@ namespace funge_98.ExecutionContexts
         }
 
 
-        public void StoragePut()
+        public void StoragePut(DeltaVector target, int value)
         {
-            var values = GetTopStackTopValues(Dimension + 1);
-            var targetCell = new DeltaVector(values.Reverse().Skip(1).ToArray());
-            ModifyCell(targetCell, values.Last());
+            ModifyCell(target, value);
         }
 
         public void StorageGet()

@@ -29,7 +29,9 @@ namespace funge_98.FactoriesStuff.Factories
                 new RotateDirectionCommand('['),
                 new RotateDirectionCommand(']'),
                 new InputFileCommand(),
-
+                new StoreCharacterCommand(),
+                new ClearStackCommand(),
+                new JumpForward(),
             };
             cc = _otherFactories.Aggregate(cc, (current, factory) => current.Concat(factory.CreateProducts()).ToList());
             var r = cc.Find(x => x.Name == 'r') as ReflectDirectionCommand;
@@ -40,6 +42,7 @@ namespace funge_98.FactoriesStuff.Factories
             cc.Add(new StackUnderStackCommand(r));
             cc.Add(new EndBlockCommand(r));
             cc.Add(new IterateCommand(cc));
+            cc.Add(new SplitCommand(r));
             return cc;
         }
     }

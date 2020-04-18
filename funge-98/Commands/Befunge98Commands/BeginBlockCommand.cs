@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge98Commands
         protected override string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
-            var newStack = new Stack<int>(n);
+            var newStack = new Stack<int>();
             if (n > 0)
             {
                 var values = fungeContext.GetTopStackTopValues(n).Reverse().ToArray();
@@ -30,10 +30,10 @@ namespace funge_98.Commands.Befunge98Commands
 
             var currentThread = fungeContext.CurrentThread;
             var storageOffset = currentThread.StorageOffset;
-            
-            foreach (var coord in storageOffset.Coords)
-            {
-                fungeContext.Stacks.Peek().Push(coord);
+
+            for (int i = 0; i < fungeContext.Dimension; i++)
+            { 
+                fungeContext.Stacks.Peek().Push(storageOffset.Coords[i]);
             }
 
             currentThread.StorageOffset = currentThread.CurrentPosition + currentThread.DeltaVector;
