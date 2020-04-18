@@ -6,5 +6,7 @@ namespace funge_98.ExecutionContexts
 
         public DeltaVector CurrentPosition { get; set; }
         public DeltaVector StorageOffset { get; set; }
+
+        public bool Alive { get; set; } = true;
     }
 }

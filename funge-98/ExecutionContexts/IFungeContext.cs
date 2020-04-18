@@ -10,17 +10,17 @@ namespace funge_98.ExecutionContexts
     {
         private readonly HashSet<char> _supportedCommands;
         protected readonly ISourceCodeParser Parser;
-        private readonly Stack<Stack<int>> _stacks = new Stack<Stack<int>>();
+        internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
+
+        internal List<InstructionPointer> Threads { get; set; }
 
         protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
         {
-            _stacks.Push(new Stack<int>());
+            Stacks.Push(new Stack<int>());
             _supportedCommands = supportedCommands1;
             Parser = parser;
         }
-
-        public int Ticks { get; private set; } = 1;
-
+        
         public abstract CustomSettings Settings { get; set; }
 
         public abstract string Version { get; }
@@ -38,13 +38,13 @@ namespace funge_98.ExecutionContexts
 
         public int[] GetTopStackTopValues(int count)
         {
-            if (_stacks.Count == 0)
+            if (Stacks.Count == 0)
             {
-                _stacks.Push(new Stack<int>());
+                Stacks.Push(new Stack<int>());
             }
 
             var res = new int[count];
-            var top = _stacks.Peek();
+            var top = Stacks.Peek();
             for (var i = 0; i < count; i++)
             {
                 if (top.Count == 0)
@@ -62,12 +62,12 @@ namespace funge_98.ExecutionContexts
 
         public void PushToTopStack(int value)
         {
-            if (_stacks.Count == 0)
+            if (Stacks.Count == 0)
             {
-                _stacks.Push(new Stack<int>());
+                Stacks.Push(new Stack<int>());
             }
 
-            _stacks.Peek().Push(value);
+            Stacks.Peek().Push(value);
         }
 
         public abstract void SetDeltaVector(Direction direction);
@@ -88,12 +88,6 @@ namespace funge_98.ExecutionContexts
 
         public abstract void MoveOnce();
         public abstract char GetCurrentCommandName();
-
-        public void ClearTopStack()
-        {
-            if (_stacks.Count != 0)
-                _stacks.Pop();
-        }
 
         public void ToggleStringMode()
         {

@@ -14,12 +14,19 @@ namespace funge_98.Languages
             _commandProducer = commandProducer;
             _executionContext.InitField();
         }
+        
+        public int Tick { get; set; }
 
-        public string NextTick()
+        public string NextStep()
         {
-           var commandName = _executionContext.GetCurrentCommandName();
-           return _commandProducer.GetCommand(commandName).Execute(_executionContext);
-          
+            //todo need think about it
+            foreach (var thread in _executionContext.Threads)
+            {
+                var commandName = _executionContext.GetCurrentCommandName();
+                _commandProducer.GetCommand(commandName).Execute(_executionContext);
+            }
+            Tick += 1;
+            return null;
         }
 
         public string RunProgram()
@@ -27,7 +34,7 @@ namespace funge_98.Languages
             string error = null;
             while (error==null && _executionContext.InterpreterAlive)
             {
-                error = NextTick();
+                error = NextStep();
             }
             return error;
         }
