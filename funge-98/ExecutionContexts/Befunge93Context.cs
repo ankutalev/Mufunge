@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using funge_98.Enums;
 using funge_98.Exceptions;
@@ -10,19 +9,12 @@ namespace funge_98.ExecutionContexts
     {
         private readonly char[,] _field = new char[25, 80];
 
-        private readonly InstructionPointer _instructionPointer = new InstructionPointer
+        internal override InstructionPointer CurrentThread { get; set; } = new InstructionPointer
         {
             StorageOffset = new DeltaVector(0, 0, 0),
             DeltaVector = new DeltaVector(1, 0, 0),
-            CurrentPosition = new DeltaVector(0, 0, 0)
-        };
-
-        private readonly List<DeltaVector> _constantVectors = new List<DeltaVector>
-        {
-            new DeltaVector(0, -1, 0),
-            new DeltaVector(0, 1, 0),
-            new DeltaVector(1, 0, 0),
-            new DeltaVector(-1, 0, 0)
+            CurrentPosition = new DeltaVector(0, 0, 0),
+            Alive = true
         };
 
         private static readonly HashSet<char> SupportedCommands = new HashSet<char>
@@ -77,6 +69,8 @@ namespace funge_98.ExecutionContexts
             }
         }
 
+        internal override List<InstructionPointer> Threads { get => new List<InstructionPointer>{ CurrentThread}; set {} }
+
         public override CustomSettings Settings
         {
             get => new CustomSettings
@@ -93,14 +87,6 @@ namespace funge_98.ExecutionContexts
 
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
-        public override bool InterpreterAlive { get; protected set; } = true;
-
-        public override DeltaVector CurrentDirectionVector
-        {
-            get => _instructionPointer.DeltaVector;
-            set => _instructionPointer.DeltaVector = value;
-        }
-
         public override void InitField()
         {
             var y = 0;
@@ -126,35 +112,21 @@ namespace funge_98.ExecutionContexts
                 y++;
             }
         }
-
-        public override void SetDeltaVector(Direction direction)
-        {
-            if (direction == Direction.Random)
-            {
-                var r = new Random();
-                _instructionPointer.DeltaVector = _constantVectors[r.Next(0, 4)];
-            }
-            else
-            {
-                _instructionPointer.DeltaVector = _constantVectors[(int) direction];
-            }
-        }
-
         public override void MoveOnce()
         {
-            _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
-            _instructionPointer.CurrentPosition.X = (_instructionPointer.CurrentPosition.X + 80) % 80;
-            _instructionPointer.CurrentPosition.Y = (_instructionPointer.CurrentPosition.Y + 25) % 25;
+            CurrentThread.CurrentPosition += CurrentThread.DeltaVector;
+            CurrentThread.CurrentPosition.X = (CurrentThread.CurrentPosition.X + 80) % 80;
+            CurrentThread.CurrentPosition.Y = (CurrentThread.CurrentPosition.Y + 25) % 25;
         }
 
         public override char GetCurrentCommandName()
         {
-            return _field[_instructionPointer.CurrentPosition.Y, _instructionPointer.CurrentPosition.X];
+            return _field[CurrentThread.CurrentPosition.Y, CurrentThread.CurrentPosition.X];
         }
 
         public override void Trampoline()
         {
-            _instructionPointer.CurrentPosition += _instructionPointer.DeltaVector;
+            CurrentThread.CurrentPosition += CurrentThread.DeltaVector;
         }
 
         public override void ProcessSpace()

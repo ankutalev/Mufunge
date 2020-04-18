@@ -12,9 +12,9 @@ namespace funge_98.ExecutionContexts
         protected readonly ISourceCodeParser Parser;
         internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
 
-        internal List<InstructionPointer> Threads { get; set; }
-        
-        internal InstructionPointer CurrentThread { get; set; }
+        internal abstract List<InstructionPointer> Threads { get; set; }
+
+        internal abstract InstructionPointer CurrentThread { get; set; }
 
         protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
         {
@@ -22,14 +22,29 @@ namespace funge_98.ExecutionContexts
             _supportedCommands = supportedCommands1;
             Parser = parser;
         }
-        
+
         public abstract CustomSettings Settings { get; set; }
 
         public abstract string Version { get; }
         public abstract int Dimension { get; }
 
-        public abstract bool InterpreterAlive { get; protected set; }
-        public abstract DeltaVector CurrentDirectionVector { get; set; }
+        public bool InterpreterAlive
+        {
+            get => Threads.All(x => x.Alive);
+            protected set
+            {
+                if (value)
+                    CurrentThread.Alive = true;
+                else
+                    Threads.ForEach(x => x.Alive = false);
+            }
+        }
+
+        public DeltaVector CurrentThreadDeltaVector
+        {
+            get => CurrentThread.DeltaVector;
+            set => CurrentThread.DeltaVector = value;
+        }
 
         public abstract void InitField();
 
@@ -72,7 +87,6 @@ namespace funge_98.ExecutionContexts
             Stacks.Peek().Push(value);
         }
 
-        public abstract void SetDeltaVector(Direction direction);
 
         public void StoragePut()
         {

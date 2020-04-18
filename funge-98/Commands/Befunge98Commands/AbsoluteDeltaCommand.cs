@@ -9,7 +9,7 @@ namespace funge_98.Commands.Befunge98Commands
         protected override string RealExecute(FungeContext fungeContext)
         {
             var values = fungeContext.GetTopStackTopValues(fungeContext.Dimension);
-            fungeContext.CurrentDirectionVector = new DeltaVector(values.Reverse().ToArray());
+            fungeContext.CurrentThreadDeltaVector = new DeltaVector(values.Reverse().ToArray());
             return null;
         }
     }

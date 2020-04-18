@@ -12,8 +12,8 @@ namespace funge_98.Commands.Befunge98Commands
             if (values[0] == values[1])
                 return null;
             
-            var currentDelta = fungeContext.CurrentDirectionVector;
-            fungeContext.CurrentDirectionVector = currentDelta.Rotate(values[1] > values[0] ? Direction.East : Direction.West);
+            var currentDelta = fungeContext.CurrentThreadDeltaVector;
+            fungeContext.CurrentThreadDeltaVector = currentDelta.Rotate(values[1] > values[0] ? Direction.East : Direction.West);
             return null;
         }
     }

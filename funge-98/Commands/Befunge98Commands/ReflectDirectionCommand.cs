@@ -8,8 +8,8 @@ namespace funge_98.Commands.Befunge98Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            var curDirection = fungeContext.CurrentDirectionVector;
-            fungeContext.CurrentDirectionVector = curDirection.Reflect();
+            var curDirection = fungeContext.CurrentThreadDeltaVector;
+            fungeContext.CurrentThreadDeltaVector = curDirection.Reflect();
             return null;
         }
     }

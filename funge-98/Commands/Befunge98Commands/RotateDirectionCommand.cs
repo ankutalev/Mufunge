@@ -21,8 +21,8 @@ namespace funge_98.Commands.Befunge98Commands
 
         protected override string RealExecute(FungeContext fungeContext)
         {
-            var cur = fungeContext.CurrentDirectionVector;
-            fungeContext.CurrentDirectionVector = cur.Rotate(_nameToDirection[Name]);
+            var cur = fungeContext.CurrentThreadDeltaVector;
+            fungeContext.CurrentThreadDeltaVector = cur.Rotate(_nameToDirection[Name]);
             return null;
         }
     }
