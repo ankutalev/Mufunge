@@ -34,15 +34,19 @@ namespace funge_98.FactoriesStuff.Factories
                 new ClearStackCommand(),
                 new JumpForward(),
                 new GetInfoCommand(),
-                new CloseBracketCommand(),
-                new OpenBracketCommand()
             };
             cc = _otherFactories.Aggregate(cc, (current, factory) => current.Concat(factory.CreateProducts()).ToList());
             var r = cc.Find(x => x.Name == 'r') as ReflectDirectionCommand;
+            
+            var ccc = new List<FingerPrintCommand>();
             for (char c = 'A'; c <= 'Z'; c++)
             {
-                cc.Add(new FingerPrint(c,r));
+                ccc.Add(new FingerPrintCommand(c));
             } 
+            cc.Add(new OpenBracketCommand(ccc));
+            cc.Add(new CloseBracketCommand(ccc));
+
+            cc.AddRange(ccc);
             cc.Add(new StackUnderStackCommand());
             cc.Add(new EndBlockCommand(r));
             cc.Add(new IterateCommand(cc));

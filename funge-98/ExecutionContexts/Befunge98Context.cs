@@ -3,6 +3,7 @@ using System.Linq;
 using funge_98.Commands;
 using funge_98.Enums;
 using funge_98.Exceptions;
+using funge_98.FingerPrints;
 using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
@@ -61,7 +62,7 @@ namespace funge_98.ExecutionContexts
         };
                 
 
-        public Befunge98Context(ISourceCodeParser parser) : base(SupportedCommands, parser)
+        public Befunge98Context(ISourceCodeParser parser,List<FingerPrint> fps) : base(SupportedCommands, parser, fps)
         {
             
         }

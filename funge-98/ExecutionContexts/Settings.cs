@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using funge_98.Enums;
+using funge_98.FingerPrints;
 
 namespace funge_98.ExecutionContexts
 {
@@ -64,7 +66,6 @@ namespace funge_98.ExecutionContexts
                 _warnIfCommandNotSupported = value;
             }
         }
-
         public UnimplementedPolicy UnimplementedPolicy { get; set; }
     }
 }

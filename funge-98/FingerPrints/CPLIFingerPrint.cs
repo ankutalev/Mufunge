@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.FingerPrints
 {
+    [ContainerElement]
     public class CpliFingerPrint : FingerPrint
     {
         public override string Name => "CPLI";

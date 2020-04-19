@@ -12,7 +12,15 @@ namespace funge_98.Commands.Befunge93Commands
         public override char Name { get; }
         protected override string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.PushToTopStack(int.Parse(Name.ToString(), System.Globalization.NumberStyles.HexNumber));
+            try
+            {
+                fungeContext.PushToTopStack(int.Parse(Name.ToString(), System.Globalization.NumberStyles.HexNumber));
+            }
+            catch
+            {
+                fungeContext.PushToTopStack(Name);
+            }
+
             return null;
         }
     }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using funge_98.Commands;
 using funge_98.Enums;
+using funge_98.FingerPrints;
 using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
@@ -16,14 +17,17 @@ namespace funge_98.ExecutionContexts
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
-        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser)
+        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser, List<FingerPrint> fps)
         {
             Stacks.Push(new Stack<int>());
             _supportedCommands = supportedCommands1;
             Parser = parser;
+            SupportedFingerPrints = fps;
         }
 
         public abstract CustomSettings Settings { get; set; }
+        public List<FingerPrint> SupportedFingerPrints { get; }
+
 
         public abstract string Version { get; }
         public abstract int Dimension { get; }
