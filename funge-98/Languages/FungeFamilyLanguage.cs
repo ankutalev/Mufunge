@@ -28,7 +28,6 @@ namespace funge_98.Languages
             {
                 var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
                 var command = _commandProducer.GetCommand(commandName);
-                // Console.WriteLine("{0} {1} {2}", _executionContext.CurrentThread.CurrentPosition.X, _executionContext.CurrentThread.CurrentPosition.Y, (char) commandName);
                 command.Execute(_executionContext);
                 if (command.CanTick)
                     Tick += 1;

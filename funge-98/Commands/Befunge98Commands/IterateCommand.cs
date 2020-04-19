@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Attributes;
 using funge_98.ExecutionContexts;
@@ -40,7 +41,7 @@ namespace funge_98.Commands.Befunge98Commands
                 var command = _commands.Find(c => c.Name == nextCommand);
                 for (int i = 0; i < n; i++)
                 {
-                    command.Execute(fungeContext);
+                    command?.Execute(fungeContext);
                     fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThreadDeltaVector.Reflect();
                 }
 

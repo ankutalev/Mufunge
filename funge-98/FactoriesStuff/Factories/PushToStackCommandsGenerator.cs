@@ -11,9 +11,9 @@ namespace funge_98.FactoriesStuff.Factories
     {
         public IEnumerable<ICommand> CreateProducts()
         {
-            for (var i = 0; i < 9; i++)
+            for (var i = '0'; i <= '9'; i++)
             {
-                yield return new PushDecimalNumberCommand((char) i);
+                yield return new PushDecimalNumberCommand(i);
             }
 
             for (var i = 'a'; i <= 'f'; i++)
