@@ -1,14 +1,17 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class JumpCommand : Command
+    [ContainerElement, Funge98Command]
+
+    public class JumpCommand : ICommand
     {
-        public override char Name { get; } = ';';
+        public char Name { get; } = ';';
 
-        public override bool CanTick => false;
+        public bool CanTick => false;
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             do
             {

@@ -1,12 +1,15 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class ReflectDirectionCommand : Command
-    {
-        public override char Name { get; } = 'r';
+    [ContainerElement, Funge98Command]
 
-        protected override string RealExecute(FungeContext fungeContext)
+    public class ReflectDirectionCommand : ICommand
+    {
+        public char Name { get; } = 'r';
+
+        public string RealExecute(FungeContext fungeContext)
         {
             var curDirection = fungeContext.CurrentThreadDeltaVector;
             fungeContext.CurrentThreadDeltaVector = curDirection.Reflect();

@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using Attributes;
 using funge_98.Enums;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class RotateDirectionCommand : Command
+    [ContainerElement]
+    [Funge98Command]
+    public class TurnCommand : ICommand
     {
         private readonly Dictionary<char, Direction> _nameToDirection = new Dictionary<char, Direction>
         {
@@ -12,14 +15,14 @@ namespace funge_98.Commands.Befunge98Commands
             {']', Direction.East},
         };
 
-        public RotateDirectionCommand(char name)
+        public TurnCommand(char name)
         {
             Name = name;
         }
 
-        public override char Name { get; }
+        public char Name { get; }
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             var cur = fungeContext.CurrentThreadDeltaVector;
             fungeContext.CurrentThreadDeltaVector = cur.Rotate(_nameToDirection[Name]);

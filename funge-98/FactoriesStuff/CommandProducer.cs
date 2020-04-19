@@ -12,7 +12,7 @@ namespace funge_98.FactoriesStuff
     public class CommandProducer
     {
         public List<IFingerPrint> FingerPrints { get; }
-        private readonly Dictionary<char, Command> _commandMap;
+        private readonly Dictionary<char, ICommand> _commandMap;
 
         public CommandProducer(Funge98CommandsFactory factory, List<IFingerPrint> fingerPrints)
         {
@@ -20,7 +20,7 @@ namespace funge_98.FactoriesStuff
             _commandMap = factory.CreateProducts().ToDictionary(c=>c.Name);
         }
 
-        public Command GetCommand(int name)
+        public ICommand GetCommand(int name)
         {
             try
             {

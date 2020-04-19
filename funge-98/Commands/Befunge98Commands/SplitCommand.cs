@@ -1,20 +1,17 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class SplitCommand : Command
+    [ContainerElement, Funge98Command]
+    public class SplitCommand : ICommand
     {
-        private readonly ReflectDirectionCommand _reflectDirectionCommand;
+        public char Name { get; } = 't';
 
-        public SplitCommand(ReflectDirectionCommand reflectDirectionCommand)
+        public string RealExecute(FungeContext fungeContext)
         {
-            _reflectDirectionCommand = reflectDirectionCommand;
-        }
-
-        public override char Name { get; } = 't';
-        protected override string RealExecute(FungeContext fungeContext)
-        {
-            return _reflectDirectionCommand.Execute(fungeContext);
+            //todo
+            return null;
         }
     }
 }

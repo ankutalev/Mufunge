@@ -1,12 +1,14 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class ClearStackCommand : Command
+    [ContainerElement, Funge98Command]
+    public class ClearStackCommand : ICommand
     {
-        public override char Name { get; } = 'n';
+        public char Name { get; } = 'n';
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             if (fungeContext.Stacks.Count != 0)
             {

@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class CloseBracketCommand : Command
+    [ContainerElement, Funge98Command]
+
+    public class CloseBracketCommand : ICommand
     {
         private readonly List<FingerPrintCommand> _fpc;
-        public override char Name { get; } = ')';
+        public char Name { get; } = ')';
         public CloseBracketCommand( List<FingerPrintCommand> fpc)
         {
             _fpc = fpc;
         }
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
             if (n < 0)

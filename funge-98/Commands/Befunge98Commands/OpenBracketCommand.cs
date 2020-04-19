@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class OpenBracketCommand : Command
+    [ContainerElement, Funge98Command]
+    public class OpenBracketCommand : ICommand
     {
         private readonly List<FingerPrintCommand> _fpc;
 
-        public OpenBracketCommand( List<FingerPrintCommand> fpc)
+        public OpenBracketCommand(List<FingerPrintCommand> fpc)
         {
             _fpc = fpc;
         }
-        public override char Name { get; } = '(';
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public char Name { get; } = '(';
+
+        public string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
             if (n < 0)
@@ -35,10 +38,11 @@ namespace funge_98.Commands.Befunge98Commands
                 return null;
             }
 
-            foreach (var (key,f) in fp.KeyBinding)
+            foreach (var (key, f) in fp.KeyBinding)
             {
-                _fpc.Find(c=>c.Name ==key)?.ApplyAlias(f);
+                _fpc.Find(c => c.Name == key)?.ApplyAlias(f);
             }
+
             fungeContext.PushToTopStack(accum);
             fungeContext.PushToTopStack(1);
             return null;

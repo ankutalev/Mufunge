@@ -1,14 +1,18 @@
 using System.Linq;
+using Attributes;
 using funge_98.Enums;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class GetInfoCommand : Command
+    [ContainerElement, Funge98Command]
+    public class GetInfoCommand : ICommand
     {
-        public override char Name { get; } = 'y';
-        protected override string RealExecute(FungeContext fungeContext)
+        public char Name { get; } = 'y';
+
+        public string RealExecute(FungeContext fungeContext)
         {
+            //todo
             var value = fungeContext.GetTopStackTopValues(1)[0];
             var values = Enumerable.Repeat(0, 20).ToArray();
             values[1] = sizeof(int);
@@ -18,7 +22,7 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 if (value > values.Length)
                     return null;
-                fungeContext.PushToTopStack(values[value-1]);
+                fungeContext.PushToTopStack(values[value - 1]);
             }
             else
             {
@@ -27,7 +31,8 @@ namespace funge_98.Commands.Befunge98Commands
                     fungeContext.PushToTopStack(i);
                 }
             }
-                return null;
+
+            return null;
         }
 
         private int GetFlagsInfo(CustomSettings settings)

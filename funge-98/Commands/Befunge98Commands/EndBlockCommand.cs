@@ -1,20 +1,15 @@
 using System.Linq;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class EndBlockCommand : Command
+    [ContainerElement, Funge98Command]
+    public class EndBlockCommand : ICommand
     {
-        private readonly ReflectDirectionCommand _reflectDirectionCommand;
+        public char Name { get; } = '}';
 
-        public EndBlockCommand(ReflectDirectionCommand reflectDirectionCommand)
-        {
-            _reflectDirectionCommand = reflectDirectionCommand;
-        }
-
-        public override char Name { get; } = '}';
-
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             if (fungeContext.Stacks.Count < 2)
             {
@@ -27,11 +22,11 @@ namespace funge_98.Commands.Befunge98Commands
             var values = n > 0 ? fungeContext.GetTopStackTopValues(n) : new int[0];
             //remove toss
             fungeContext.Stacks.Pop();
-            
+
             // restore offset
             var storageOffset = fungeContext.GetTopStackTopValues(fungeContext.Dimension);
             fungeContext.CurrentThread.StorageOffset = new DeltaVector(storageOffset.Reverse().ToArray());
-            
+
             //
             if (n < 0)
             {
@@ -44,7 +39,7 @@ namespace funge_98.Commands.Befunge98Commands
                     fungeContext.Stacks.Peek().Push(value);
                 }
             }
-            
+
             return null;
         }
     }

@@ -1,20 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class FingerPrintCommand : Command
+    [ContainerElement, Funge98Command]
+    public class FingerPrintCommand : ICommand
     {
         private bool _firstMet = true;
         private readonly Stack<Func<FungeContext, string>> _keyBindings = new Stack<Func<FungeContext, string>>();
+
         public FingerPrintCommand(char name)
         {
             Name = name;
         }
 
-        public override char Name { get; }
-        protected override string RealExecute(FungeContext fungeContext)
+        public char Name { get; }
+
+        public string RealExecute(FungeContext fungeContext)
         {
             if (_firstMet)
             {
@@ -30,10 +34,9 @@ namespace funge_98.Commands.Befunge98Commands
             }
 
             return _keyBindings.Peek().Invoke(fungeContext);
-
         }
 
-        public void ApplyAlias(Func<FungeContext,string> keyBinding)
+        public void ApplyAlias(Func<FungeContext, string> keyBinding)
         {
             _keyBindings.Push(keyBinding);
         }

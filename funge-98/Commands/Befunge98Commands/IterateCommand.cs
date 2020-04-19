@@ -1,19 +1,22 @@
 using System.Collections.Generic;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class IterateCommand : Command
+    [ContainerElement, Funge98Command]
+    public class IterateCommand : ICommand
     {
-        private readonly List<Command> _commands;
+        private readonly List<ICommand> _commands;
 
-        public IterateCommand (List<Command> commands)
+        public IterateCommand(List<ICommand> commands)
         {
             _commands = commands;
         }
 
-       public override char Name { get; } = 'k';
-        protected override string RealExecute(FungeContext fungeContext)
+        public char Name { get; } = 'k';
+
+        public string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
             if (n == 0)
@@ -21,6 +24,7 @@ namespace funge_98.Commands.Befunge98Commands
                 fungeContext.MoveOnce();
                 return null;
             }
+
             if (n < 0)
             {
                 return "k command behavior not specified when n is negative";
@@ -31,7 +35,7 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 nextPos += fungeContext.CurrentThreadDeltaVector;
                 var nextCommand = fungeContext.GetCellValue(nextPos);
-                if (nextCommand == ';' || nextCommand == ' ') 
+                if (nextCommand == ';' || nextCommand == ' ')
                     continue;
                 var command = _commands.Find(c => c.Name == nextCommand);
                 for (int i = 0; i < n; i++)
@@ -39,6 +43,7 @@ namespace funge_98.Commands.Befunge98Commands
                     command.Execute(fungeContext);
                     fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThreadDeltaVector.Reflect();
                 }
+
                 return null;
             }
         }

@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    public class BeginBlockCommand : Command
+    [ContainerElement, Funge98Command]
+
+    public class BeginBlockCommand : ICommand
     {
-        public override char Name { get; } = '{';
-        protected override string RealExecute(FungeContext fungeContext)
+        public char Name { get; } = '{';
+
+        public string RealExecute(FungeContext fungeContext)
         {
             var n = fungeContext.GetTopStackTopValues(1)[0];
             var newStack = new Stack<int>();
