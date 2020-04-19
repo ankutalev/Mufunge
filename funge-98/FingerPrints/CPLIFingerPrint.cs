@@ -6,11 +6,11 @@ using funge_98.ExecutionContexts;
 namespace funge_98.FingerPrints
 {
     [ContainerElement]
-    public class CpliFingerPrint : FingerPrint
+    public class CpliFingerPrint : IFingerPrint
     {
-        public override string Name => "CPLI";
+        public  string Name => "CPLI";
 
-        public override Dictionary<char, Func<FungeContext, string>> KeyBinding
+        public  Dictionary<char, Func<FungeContext, string>> KeyBinding
         {
             get
             {

@@ -8,7 +8,7 @@ namespace funge_98.Languages
 {
     public class Befunge_98 : FungeFamilyLanguage
     {
-        public Befunge_98(CommandProducer commandProducer,ISourceCodeParser parser, List<FingerPrint> fps) : base(new Befunge98Context(parser,fps), commandProducer)
+        public Befunge_98(CommandProducer commandProducer,ISourceCodeParser parser, List<IFingerPrint> fps) : base(new Befunge98Context(parser,fps), commandProducer)
         {
         }
     }

@@ -11,10 +11,10 @@ namespace funge_98.FactoriesStuff
     [ContainerElement]
     public class CommandProducer
     {
-        public List<FingerPrint> FingerPrints { get; }
+        public List<IFingerPrint> FingerPrints { get; }
         private readonly Dictionary<char, Command> _commandMap;
 
-        public CommandProducer(Funge98CommandsFactory factory, List<FingerPrint> fingerPrints)
+        public CommandProducer(Funge98CommandsFactory factory, List<IFingerPrint> fingerPrints)
         {
             FingerPrints = fingerPrints;
             _commandMap = factory.CreateProducts().ToDictionary(c=>c.Name);

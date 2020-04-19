@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using funge_98.ExecutionContexts;
@@ -22,7 +23,7 @@ namespace funge_98.Commands.Befunge98Commands
                 return "UB in \"(\" : top stack value negative";
             }
 
-            var values = fungeContext.GetTopStackTopValues(n).Reverse().ToArray();
+            var values = fungeContext.GetTopStackTopValues(n).ToArray();
 
             var accum = values.Aggregate(0, (current, value) => current * 256 + value);
 
@@ -38,7 +39,8 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 _fpc.Find(c=>c.Name ==key)?.ApplyAlias(f);
             }
-
+            fungeContext.PushToTopStack(accum);
+            fungeContext.PushToTopStack(1);
             return null;
         }
     }

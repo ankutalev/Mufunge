@@ -6,11 +6,11 @@ using funge_98.ExecutionContexts;
 namespace funge_98.FingerPrints
 {
     [ContainerElement]
-    public class NULLFingerPrint : FingerPrint
+    public class NULLFingerPrint : IFingerPrint
     {
-        public override string Name { get; } = "NULL";
+        public  string Name { get; } = "NULL";
 
-        public override Dictionary<char, Func<FungeContext, string>> KeyBinding
+        public Dictionary<char, Func<FungeContext, string>> KeyBinding
         {
 
             get
@@ -18,7 +18,11 @@ namespace funge_98.FingerPrints
                 var d = new Dictionary<char, Func<FungeContext, string>>();
                 for (var i = 'A'; i <= 'Z'; i++)
                 {
-                    d.Add(i, context => null);
+                    d.Add(i, context =>
+                    {
+                        context.CurrentThreadDeltaVector = context.CurrentThreadDeltaVector.Reflect();
+                        return null;
+                    });
                 }
                 return d;
             }

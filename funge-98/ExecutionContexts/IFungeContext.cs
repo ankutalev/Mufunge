@@ -17,7 +17,7 @@ namespace funge_98.ExecutionContexts
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
-        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser, List<FingerPrint> fps)
+        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser, List<IFingerPrint> fps)
         {
             Stacks.Push(new Stack<int>());
             _supportedCommands = supportedCommands1;
@@ -26,7 +26,7 @@ namespace funge_98.ExecutionContexts
         }
 
         public abstract CustomSettings Settings { get; set; }
-        public List<FingerPrint> SupportedFingerPrints { get; }
+        public List<IFingerPrint> SupportedFingerPrints { get; }
 
 
         public abstract string Version { get; }

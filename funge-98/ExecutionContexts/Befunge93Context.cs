@@ -59,7 +59,7 @@ namespace funge_98.ExecutionContexts
             ' '
         };
 
-        public Befunge93Context(ISourceCodeParser parser) : base(SupportedCommands, parser, new List<FingerPrint>())
+        public Befunge93Context(ISourceCodeParser parser) : base(SupportedCommands, parser, new List<IFingerPrint>())
         {
             for (var i = 0; i < _field.GetLength(0); i++)
             {
