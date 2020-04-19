@@ -22,7 +22,7 @@ namespace funge_98.ExecutionContexts
 
         public int Z
         {
-            get => _coords[2];
+            get => _coords.Length< 3? 0: _coords[2];
             set => _coords[2] = value;
         }
 

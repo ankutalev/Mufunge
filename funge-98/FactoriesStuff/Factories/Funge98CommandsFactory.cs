@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Attributes;
 using funge_98.Commands;
+using funge_98.Commands.Befunge93Commands;
 using funge_98.Commands.Befunge98Commands;
 
 namespace funge_98.FactoriesStuff.Factories
@@ -32,6 +33,9 @@ namespace funge_98.FactoriesStuff.Factories
                 new StoreCharacterCommand(),
                 new ClearStackCommand(),
                 new JumpForward(),
+                new GetInfoCommand(),
+                new CloseBracketCommand(),
+                new OpenBracketCommand()
             };
             cc = _otherFactories.Aggregate(cc, (current, factory) => current.Concat(factory.CreateProducts()).ToList());
             var r = cc.Find(x => x.Name == 'r') as ReflectDirectionCommand;
@@ -39,7 +43,7 @@ namespace funge_98.FactoriesStuff.Factories
             {
                 cc.Add(new FingerPrint(c,r));
             } 
-            cc.Add(new StackUnderStackCommand(r));
+            cc.Add(new StackUnderStackCommand());
             cc.Add(new EndBlockCommand(r));
             cc.Add(new IterateCommand(cc));
             cc.Add(new SplitCommand(r));

@@ -18,6 +18,8 @@ namespace funge_98.Commands.Befunge93Commands
         {
             var values = fungeContext.GetTopStackTopValues(1);
             _writer.Write((char) values[0]);
+            if (values[0] == '}')
+                ;
             return null;
         }
     }

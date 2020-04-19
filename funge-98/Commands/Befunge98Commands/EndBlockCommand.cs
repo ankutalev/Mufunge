@@ -18,7 +18,7 @@ namespace funge_98.Commands.Befunge98Commands
         {
             if (fungeContext.Stacks.Count < 2)
             {
-                _reflectDirectionCommand.Execute(fungeContext);
+                fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
                 return null;
             }
 

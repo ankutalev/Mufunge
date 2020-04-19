@@ -10,14 +10,13 @@ namespace funge_console
     {
         static void Main(string[] args)
         {
-            var kunteynir = new Container.Container(new List<string>{"funge-98"});
-            var cp =  kunteynir.Resolve<CommandProducer>();
-            var language = new Befunge_98(cp, new Befunge98FileParser(args[0],true)); 
-            var result = language.RunProgram();
-            if (result != null)
+            int i = 0x452e472e;
+            Console.WriteLine(i);
+            foreach (var c in i.ToString().ToCharArray())
             {
-                Console.WriteLine($"Error : {result}");
+                Console.Write(c);
             }
+            Console.WriteLine(i.ToString().ToCharArray().ToString());
         }
     }
 }
