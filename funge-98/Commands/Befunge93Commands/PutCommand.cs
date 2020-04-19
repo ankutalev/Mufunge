@@ -14,7 +14,7 @@ namespace funge_98.Commands.Befunge93Commands
             var values = fungeContext.GetTopStackTopValues(fungeContext.Dimension + 1);
             var targetCell = new DeltaVector(values.Reverse().Skip(1).ToArray()) +
                              fungeContext.CurrentThread.StorageOffset;
-            fungeContext.StoragePut(targetCell, values.Last());
+            fungeContext.ModifyCell(targetCell, values.Last());
             return null;
         }
     }

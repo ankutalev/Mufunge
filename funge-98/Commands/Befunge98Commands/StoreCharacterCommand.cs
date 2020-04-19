@@ -11,7 +11,7 @@ namespace funge_98.Commands.Befunge98Commands
         public string RealExecute(FungeContext fungeContext)
         {
             var value = fungeContext.GetTopStackTopValues(1)[0];
-            fungeContext.StoragePut(fungeContext.CurrentThread.CurrentPosition + fungeContext.CurrentThreadDeltaVector,
+            fungeContext.ModifyCell(fungeContext.CurrentThread.CurrentPosition + fungeContext.CurrentThreadDeltaVector,
                 value);
             fungeContext.MoveOnce();
             return null;

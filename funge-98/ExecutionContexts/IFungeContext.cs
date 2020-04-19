@@ -2,21 +2,24 @@ using System.Collections.Generic;
 using System.Linq;
 using Attributes;
 using funge_98.Commands;
+using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
 
 namespace funge_98.ExecutionContexts
 {
     public abstract class FungeContext
     {
-        private readonly Dictionary<char,bool>  _supportedCommands = new Dictionary<char, bool>();
+        private readonly IFungeField _field;
+        private readonly Dictionary<char, bool> _supportedCommands = new Dictionary<char, bool>();
         internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
 
         internal abstract List<InstructionPointer> Threads { get; set; }
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
-        protected FungeContext(List<IFingerPrint> fps)
+        protected FungeContext(List<IFingerPrint> fps, IFungeField field)
         {
+            _field = field;
             Stacks.Push(new Stack<int>());
             SupportedFingerPrints = fps;
         }
@@ -46,21 +49,21 @@ namespace funge_98.ExecutionContexts
             set => CurrentThread.DeltaVector = value;
         }
 
-        public abstract void InitField(IEnumerable<string> source);
+        public void InitField(IEnumerable<string> source) => _field.InitField(source);
 
-        public bool  IsSupported(ICommand command)
+        public bool IsSupported(ICommand command)
         {
             if (_supportedCommands.TryGetValue(command.Name, out var res))
                 return res;
-            
-            
+
+
             var myVersion = GetType().GetCustomAttributes(true).First();
             var commandVersion = command.GetType().GetCustomAttributes(true).First(t => !(t is ContainerElement));
-            
+
             switch (myVersion)
             {
                 case Trefunge _:
-                    _supportedCommands.Add(command.Name,true);
+                    _supportedCommands.Add(command.Name, true);
                     return true;
                 case Funge98 _:
                 {
@@ -119,11 +122,7 @@ namespace funge_98.ExecutionContexts
             Stacks.Peek().Push(value);
         }
 
-
-        public void StoragePut(DeltaVector target, int value)
-        {
-            ModifyCell(target, value);
-        }
+        public void ModifyCell(DeltaVector target, int value) => _field.ModifyCell(target, value);
 
         public void StorageGet()
         {
@@ -135,23 +134,18 @@ namespace funge_98.ExecutionContexts
         public void MoveOnce()
         {
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
-            if (!PositionOutOfBounds(CurrentThread.CurrentPosition)) 
+            if (!_field.IsOutOfBounds(CurrentThread.CurrentPosition))
                 return;
-            
+
             CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
             do
             {
                 CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
-            }
-            while (!PositionOutOfBounds(CurrentThread.CurrentPosition));
+            } while (!_field.IsOutOfBounds(CurrentThread.CurrentPosition));
 
             CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
-
-
         }
-
-        protected abstract bool PositionOutOfBounds(DeltaVector currentPosition);
 
         public void ToggleStringMode()
         {
@@ -167,7 +161,6 @@ namespace funge_98.ExecutionContexts
 
         public abstract void ProcessSpace();
         public void StopCurrentThread() => CurrentThread.Alive = false;
-        protected abstract void ModifyCell(DeltaVector cell, int value);
-        public abstract int GetCellValue(DeltaVector cell);
+        public int GetCellValue(DeltaVector cell) => _field.GetValue(cell);
     }
 }
