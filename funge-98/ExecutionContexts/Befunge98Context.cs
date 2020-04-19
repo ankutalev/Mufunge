@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Attributes;
-using funge_98.Commands;
 using funge_98.Enums;
 using funge_98.FingerPrints;
-using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
-    [ContainerElement]
+    [Funge98]
     public class Befunge98Context : FungeContext
     {
         private int [][] _field;
@@ -21,55 +19,10 @@ namespace funge_98.ExecutionContexts
             Alive = true
         };
 
-        private static readonly HashSet<char> SupportedCommands = new HashSet<char>
-        {
-            '+',
-            '-',
-            '*',
-            '/',
-            '%',
-            '!',
-            '`',
-            '>',
-            '<',
-            '^',
-            'v',
-            '?',
-            '_',
-            '|',
-            '"',
-            ':',
-            '\\',
-            '$',
-            '.',
-            ',',
-            '#',
-            'g',
-            'p',
-            '&',
-            '~',
-            '@',
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            ' '
-        };
-                
 
-        public Befunge98Context(List<IFingerPrint> fps) : base(SupportedCommands, fps)
+        public Befunge98Context(List<IFingerPrint> fps) : base( fps)
         {
             
-        }
-        public override bool  IsSupported(ICommand command)
-        {
-            return true;
         }
 
         internal override List<InstructionPointer> Threads

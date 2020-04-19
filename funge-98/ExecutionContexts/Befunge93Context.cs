@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using Attributes;
 using funge_98.Enums;
 using funge_98.Exceptions;
 using funge_98.FingerPrints;
-using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
+    [Befunge93]
     public class Befunge93Context : FungeContext
     {
         private readonly char[,] _field = new char[25, 80];
@@ -17,49 +18,7 @@ namespace funge_98.ExecutionContexts
             CurrentPosition = new DeltaVector(0, 0, 0),
             Alive = true
         };
-
-        private static readonly HashSet<char> SupportedCommands = new HashSet<char>
-        {
-            '+',
-            '-',
-            '*',
-            '/',
-            '%',
-            '!',
-            '`',
-            '>',
-            '<',
-            '^',
-            'v',
-            '?',
-            '_',
-            '|',
-            '"',
-            ':',
-            '\\',
-            '$',
-            '.',
-            ',',
-            '#',
-            'g',
-            'p',
-            '&',
-            '~',
-            '@',
-            '0',
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            ' '
-        };
-
-        public Befunge93Context() : base(SupportedCommands, new List<IFingerPrint>())
+        public Befunge93Context() : base(new List<IFingerPrint>())
         {
             for (var i = 0; i < _field.GetLength(0); i++)
             {

@@ -1,26 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
+using Attributes;
 using funge_98.Commands;
-using funge_98.Enums;
 using funge_98.FingerPrints;
-using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
     public abstract class FungeContext
     {
-        private readonly HashSet<char> _supportedCommands;
-        protected readonly ISourceCodeParser Parser;
+        private readonly Dictionary<char,bool>  _supportedCommands = new Dictionary<char, bool>();
         internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
 
         internal abstract List<InstructionPointer> Threads { get; set; }
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
-        protected FungeContext(HashSet<char> supportedCommands1, List<IFingerPrint> fps)
+        protected FungeContext(List<IFingerPrint> fps)
         {
             Stacks.Push(new Stack<int>());
-            _supportedCommands = supportedCommands1;
             SupportedFingerPrints = fps;
         }
 
@@ -51,9 +48,41 @@ namespace funge_98.ExecutionContexts
 
         public abstract void InitField(IEnumerable<string> source);
 
-        public virtual bool  IsSupported(ICommand command)
+        public bool  IsSupported(ICommand command)
         {
-            return _supportedCommands.Contains(command.Name);
+            if (_supportedCommands.TryGetValue(command.Name, out var res))
+                return res;
+            
+            
+            var myVersion = GetType().GetCustomAttributes(true).First();
+            var commandVersion = command.GetType().GetCustomAttributes(true).First(t => !(t is ContainerElement));
+            
+            switch (myVersion)
+            {
+                case Trefunge _:
+                    _supportedCommands.Add(command.Name,true);
+                    return true;
+                case Funge98 _:
+                {
+                    var supported = !(commandVersion is Trefunge);
+                    _supportedCommands.Add(command.Name, supported);
+                    return supported;
+                }
+                case Befunge93 _:
+                {
+                    var supported = commandVersion is Befunge93 || commandVersion is Unefunge;
+                    _supportedCommands.Add(command.Name, supported);
+                    return supported;
+                }
+                case Unefunge _:
+                {
+                    var supported = commandVersion is Unefunge;
+                    _supportedCommands.Add(command.Name, supported);
+                    return supported;
+                }
+                default:
+                    return false;
+            }
         }
 
         public int[] GetTopStackTopValues(int count)
