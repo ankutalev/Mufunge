@@ -1,12 +1,14 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class ToggleStringModeCommand : Command
+    [ContainerElement, UnefungeCommand]
+    public class ToggleStringModeCommand : ICommand
     {
-        public override char Name { get; } = '"';
+        public char Name { get; } = '"';
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             fungeContext.ToggleStringMode();
             return null;

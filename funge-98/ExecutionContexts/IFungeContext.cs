@@ -52,7 +52,7 @@ namespace funge_98.ExecutionContexts
 
         public abstract void InitField();
 
-        public virtual bool  IsSupported(Command command)
+        public virtual bool  IsSupported(ICommand command)
         {
             return _supportedCommands.Contains(command.Name);
         }

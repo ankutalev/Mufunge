@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands.Befunge93Commands
+namespace funge_98.Commands.Befunge93Commands.MoveCommand
 {
-    public class GoCommand : Command
+    public abstract class MoveCommand : ICommand
     {
         private readonly Dictionary<char, DeltaVector> _directions = new Dictionary<char, DeltaVector>
         {
@@ -15,14 +15,14 @@ namespace funge_98.Commands.Befunge93Commands
             {'v', new DeltaVector(0,1,0)},
         };
 
-        public GoCommand(char name)
+        protected MoveCommand(char name)
         {
             Name = name;
         }
 
-        public override char Name { get; }
+        public char Name { get; }
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             var newDelta = Name switch
             {

@@ -1,21 +1,21 @@
 using System;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands.Befunge93Commands
+namespace funge_98.Commands.Befunge93Commands.ArithmeticCommand
 {
-    public class ArithmeticCommand : Command
+    public class ArithmeticCommand : ICommand
     {
         private readonly Func<int, int, int> _func;
 
-        public ArithmeticCommand(Func<int, int, int> func, char name)
+        protected ArithmeticCommand(Func<int, int, int> func, char name)
         {
             _func = func;
             Name = name;
         }
 
-        public override char Name { get; }
+        public  char Name { get; }
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             var values = fungeContext.GetTopStackTopValues(2);
             try

@@ -1,14 +1,20 @@
+using funge_98.Enums;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands
 {
-    public abstract class Command
+    public interface ICommand
     {
         public string Execute(FungeContext fungeContext)
         {
             if (!fungeContext.IsSupported(this))
             {
-                return $"{fungeContext.Version} not supporting  {Name} command";
+                if (fungeContext.Settings.WarnIfCommandNotSupported==OptionStatus.Enable)
+                {
+                    return $"{fungeContext.Version} not supporting  {Name} command";
+                }
+                fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
+                return null;
             }
             
             var error =  RealExecute(fungeContext);
@@ -16,10 +22,10 @@ namespace funge_98.Commands
             return error;
         }
 
-        public abstract char Name { get; }
+        public char Name { get; }
 
-        public virtual bool CanTick => true;
+        public bool CanTick => true;
 
-        protected abstract string RealExecute(FungeContext fungeContext);
+        protected string RealExecute(FungeContext fungeContext);
     }
 }

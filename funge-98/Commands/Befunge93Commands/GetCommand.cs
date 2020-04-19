@@ -1,12 +1,14 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class GetCommand : Command
+    [ContainerElement, UnefungeCommand]
+    public class GetCommand : ICommand
     {
-        public override char Name { get; } = 'g';
+        public char Name { get; } = 'g';
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             fungeContext.StorageGet();
             return null;

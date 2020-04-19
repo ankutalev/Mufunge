@@ -1,12 +1,14 @@
+using Attributes;
 using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    public class DiscardCommand : Command
+    [ContainerElement, UnefungeCommand]
+    public class DiscardCommand : ICommand
     {
-        public override char Name { get; } = '$';
+        public char Name { get; } = '$';
 
-        protected override string RealExecute(FungeContext fungeContext)
+        public string RealExecute(FungeContext fungeContext)
         {
             fungeContext.GetTopStackTopValues(1);
             return null;

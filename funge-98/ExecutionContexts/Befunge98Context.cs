@@ -66,7 +66,7 @@ namespace funge_98.ExecutionContexts
         {
             
         }
-        public override bool  IsSupported(Command command)
+        public override bool  IsSupported(ICommand command)
         {
             return true;
         }
