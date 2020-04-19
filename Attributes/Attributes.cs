@@ -3,13 +3,13 @@ using System;
 namespace Attributes {
     public class ContainerElement : Attribute { }
     
-    public class Befunge93Command : Attribute { }
+    public class Befunge93 : Attribute { }
 
-    public class Funge98Command : Attribute { }
+    public class Funge98 : Attribute { }
 
-    public class UnefungeCommand : Attribute { }
+    public class Unefunge : Attribute { }
 
-    public class TrefungeCommand : Attribute { }
+    public class Trefunge : Attribute { }
 
     
 }

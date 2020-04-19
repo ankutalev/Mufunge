@@ -1,10 +1,9 @@
 using Attributes;
 using funge_98.ExecutionContexts;
 
-namespace funge_98.Commands.Befunge93Commands
+namespace funge_98.Commands.Befunge98Commands
 {
-    [ContainerElement, UnefungeCommand]
-
+   [Funge98]
     public class PushHexNumberCommand : ICommand
     {
         public PushHexNumberCommand(char name)
@@ -12,7 +11,7 @@ namespace funge_98.Commands.Befunge93Commands
             Name = name;
         }
 
-        public char Name { get; }
+        public char Name { get; } 
 
         public string RealExecute(FungeContext fungeContext)
         {

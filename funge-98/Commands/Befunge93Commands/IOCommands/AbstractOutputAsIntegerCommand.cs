@@ -12,6 +12,7 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
         protected AbstractOutputAsIntegerCommand(StreamWriter writer)
         {
             _writer = writer;
+            _writer.AutoFlush = true;
         }
 
         public char Name { get; } = '.';
@@ -24,11 +25,12 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
         }
     }
 
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     internal class ConsoleOutputAsIntegerCommand : AbstractOutputAsIntegerCommand
     {
         public ConsoleOutputAsIntegerCommand() : base(new StreamWriter(Console.OpenStandardOutput()))
         {
+            
         }
     }
 }

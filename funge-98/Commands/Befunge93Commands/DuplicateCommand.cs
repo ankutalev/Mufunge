@@ -3,7 +3,7 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     public class DuplicateCommand : ICommand
     {
         public char Name { get; } = ':';

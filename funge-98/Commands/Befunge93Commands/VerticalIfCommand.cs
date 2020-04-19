@@ -3,7 +3,7 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    [Befunge93Command]
+    [Befunge93]
     [ContainerElement]
     public class VerticalIfCommand : ICommand
     {

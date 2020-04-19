@@ -59,7 +59,7 @@ namespace funge_98.ExecutionContexts
             ' '
         };
 
-        public Befunge93Context(ISourceCodeParser parser) : base(SupportedCommands, parser, new List<IFingerPrint>())
+        public Befunge93Context() : base(SupportedCommands, new List<IFingerPrint>())
         {
             for (var i = 0; i < _field.GetLength(0); i++)
             {
@@ -93,10 +93,10 @@ namespace funge_98.ExecutionContexts
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
 
-        public override void InitField()
+        public override void InitField(IEnumerable<string> source)
         {
             var y = 0;
-            foreach (var line in Parser.GetSourceCode())
+            foreach (var line in source)
             {
                 if (y > 25)
                 {

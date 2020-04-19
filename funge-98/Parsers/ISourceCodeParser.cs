@@ -5,6 +5,6 @@ namespace funge_98.Parsers
 {
     public interface ISourceCodeParser
     {
-        IEnumerable<string> GetSourceCode();
+        IEnumerable<string> GetSourceCode(string filename, bool onlyStandardExtension);
     }
 }

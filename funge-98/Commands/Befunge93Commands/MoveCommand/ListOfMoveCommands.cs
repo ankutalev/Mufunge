@@ -2,7 +2,7 @@ using Attributes;
 
 namespace funge_98.Commands.Befunge93Commands.MoveCommand
 {
-    [ContainerElement, Befunge93Command]
+    [ContainerElement, Befunge93]
     public class MoveUp : MoveCommand
     {
         public MoveUp() : base('^')
@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         }
     }
 
-    [ContainerElement, Befunge93Command]
+    [ContainerElement, Befunge93]
     public class MoveDown : MoveCommand
     {
         public MoveDown() : base('v')
@@ -18,7 +18,7 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         }
     }
 
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     public class MoveLeft : MoveCommand
     {
         public MoveLeft() : base('<')
@@ -26,7 +26,7 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         }
     }
 
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     public class MoveRight : MoveCommand
     {
         public MoveRight() : base('>')

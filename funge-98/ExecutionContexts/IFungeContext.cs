@@ -17,11 +17,10 @@ namespace funge_98.ExecutionContexts
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
-        protected FungeContext(HashSet<char> supportedCommands1, ISourceCodeParser parser, List<IFingerPrint> fps)
+        protected FungeContext(HashSet<char> supportedCommands1, List<IFingerPrint> fps)
         {
             Stacks.Push(new Stack<int>());
             _supportedCommands = supportedCommands1;
-            Parser = parser;
             SupportedFingerPrints = fps;
         }
 
@@ -50,7 +49,7 @@ namespace funge_98.ExecutionContexts
             set => CurrentThread.DeltaVector = value;
         }
 
-        public abstract void InitField();
+        public abstract void InitField(IEnumerable<string> source);
 
         public virtual bool  IsSupported(ICommand command)
         {

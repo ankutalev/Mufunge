@@ -4,7 +4,7 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    [ContainerElement, Funge98Command]
+    [Funge98]
     public class IterateCommand : ICommand
     {
         private readonly List<ICommand> _commands;

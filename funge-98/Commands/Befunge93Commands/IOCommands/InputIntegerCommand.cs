@@ -9,12 +9,13 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
     {
         private readonly StreamReader _reader;
 
-        protected AbstractInputIntegerCommand(StreamReader reader)
+        protected AbstractInputIntegerCommand(StreamReader reader, char name)
         {
             _reader = reader;
+            Name = name;
         }
 
-        public char Name { get; } = '&';
+        public char Name { get; }
 
         public string RealExecute(FungeContext fungeContext)
         {
@@ -28,10 +29,10 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
         }
     }
 
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     internal class InputIntegerCommand : AbstractInputIntegerCommand
     {
-        public InputIntegerCommand() : base(new StreamReader(Console.OpenStandardInput()))
+        public InputIntegerCommand() : base(new StreamReader(Console.OpenStandardInput()),'&')
         {
         }
     }

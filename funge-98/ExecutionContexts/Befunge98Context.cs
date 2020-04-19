@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using Attributes;
 using funge_98.Commands;
 using funge_98.Enums;
-using funge_98.Exceptions;
 using funge_98.FingerPrints;
 using funge_98.Parsers;
 
 namespace funge_98.ExecutionContexts
 {
+    [ContainerElement]
     public class Befunge98Context : FungeContext
     {
         private int [][] _field;
@@ -62,7 +63,7 @@ namespace funge_98.ExecutionContexts
         };
                 
 
-        public Befunge98Context(ISourceCodeParser parser,List<IFingerPrint> fps) : base(SupportedCommands, parser, fps)
+        public Befunge98Context(List<IFingerPrint> fps) : base(SupportedCommands, fps)
         {
             
         }
@@ -94,11 +95,11 @@ namespace funge_98.ExecutionContexts
         public override string Version { get; } = "Befunge-98";
         public override int Dimension { get; } = 2;
 
-        public override void InitField()
+        public override void InitField(IEnumerable<string> source)
         {
             var tmp = new List<string>();
             var maxLen = 0;
-            foreach (var line in Parser.GetSourceCode())
+            foreach (var line in source)
             {
                 if (line.Length > maxLen)
                 {
@@ -135,6 +136,7 @@ namespace funge_98.ExecutionContexts
 
         protected override void ModifyCell(DeltaVector cell, int value)
         {
+            _field[cell.Y][cell.X] =  value;
         }
 
         public override int GetCellValue(DeltaVector cell)

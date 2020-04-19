@@ -12,6 +12,7 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
         protected AbstractOutputAsAsciiCommand(StreamWriter writer)
         {
             _writer = writer;
+            _writer.AutoFlush = true;
         }
 
         public char Name { get; } = ',';
@@ -24,7 +25,7 @@ namespace funge_98.Commands.Befunge93Commands.IOCommands
         }
     }
 
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     internal class ConsoleOutputAsAsciiCommand : AbstractOutputAsAsciiCommand
     {
         public ConsoleOutputAsAsciiCommand() : base(new StreamWriter(Console.OpenStandardOutput()))

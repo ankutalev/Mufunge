@@ -4,7 +4,7 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge93Commands
 {
-    [ContainerElement, UnefungeCommand]
+    [ContainerElement, Unefunge]
     public class PutCommand : ICommand
     {
         public char Name { get; } = 'p';

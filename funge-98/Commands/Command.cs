@@ -26,6 +26,6 @@ namespace funge_98.Commands
 
         public bool CanTick => true;
 
-        protected string RealExecute(FungeContext fungeContext);
+        public string RealExecute(FungeContext fungeContext);
     }
 }

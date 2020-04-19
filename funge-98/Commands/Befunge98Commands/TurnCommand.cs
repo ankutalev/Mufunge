@@ -5,9 +5,7 @@ using funge_98.ExecutionContexts;
 
 namespace funge_98.Commands.Befunge98Commands
 {
-    [ContainerElement]
-    [Funge98Command]
-    public class TurnCommand : ICommand
+    public class AbstractTurnCommand : ICommand
     {
         private readonly Dictionary<char, Direction> _nameToDirection = new Dictionary<char, Direction>
         {
@@ -15,7 +13,7 @@ namespace funge_98.Commands.Befunge98Commands
             {']', Direction.East},
         };
 
-        public TurnCommand(char name)
+        protected AbstractTurnCommand(char name)
         {
             Name = name;
         }
@@ -27,6 +25,22 @@ namespace funge_98.Commands.Befunge98Commands
             var cur = fungeContext.CurrentThreadDeltaVector;
             fungeContext.CurrentThreadDeltaVector = cur.Rotate(_nameToDirection[Name]);
             return null;
+        }
+    }
+
+    [ContainerElement, Funge98]
+    public class TurnLeftCommand : AbstractTurnCommand
+    {
+        public TurnLeftCommand() : base('[')
+        {
+        }
+    }
+
+    [ContainerElement, Funge98]
+    public class TurnRightCommand : AbstractTurnCommand
+    {
+        public TurnRightCommand() : base(']')
+        {
         }
     }
 }
