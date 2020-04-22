@@ -147,7 +147,7 @@ namespace funge_98.ExecutionContexts
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
         }
 
-        public void ToggleStringMode()
+        public virtual void ToggleStringMode()
         {
             while (true)
             {

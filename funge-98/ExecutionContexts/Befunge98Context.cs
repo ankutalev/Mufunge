@@ -48,5 +48,25 @@ namespace funge_98.ExecutionContexts
         public override void ProcessSpace()
         {
         }
+        
+        public override void ToggleStringMode()
+        {
+            while (true)
+            {
+                MoveOnce();
+                var c = GetCellValue(CurrentThread.CurrentPosition);
+                if (c == '"')
+                    break;
+                if (c == ' ')
+                {
+                    do
+                    {
+                        MoveOnce();
+                    } while (GetCellValue(CurrentThread.CurrentPosition) == ' ');
+                    CurrentThread.CurrentPosition += CurrentThreadDeltaVector.Reflect();
+                }
+                PushToTopStack(c);
+            }
+        }
     }
 }

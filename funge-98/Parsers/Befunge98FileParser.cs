@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Attributes;
 using funge_98.Exceptions;
 
@@ -20,7 +21,12 @@ namespace funge_98.Parsers
                 throw new IncorrectExtensionException("Befunge-98 source code file must have .bf extension.");
             }
 
-            return File.ReadLines(filename);
+            foreach (var line in File.ReadLines(filename))
+            {
+                yield return new string(line.Where(x=> x!='\f').ToArray());
+            }
+
+            File.ReadLines(filename);
         }
     }
 }
