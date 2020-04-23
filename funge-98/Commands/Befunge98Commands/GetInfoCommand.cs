@@ -16,11 +16,11 @@ namespace funge_98.Commands.Befunge98Commands
         {
             //todo
             var value = fungeContext.GetTopStackTopValues(1)[0];
-            var values = Enumerable.Repeat(0, 1)
+            var values = Enumerable.Repeat(GetFlagsInfo(fungeContext.Settings), 1)
                 .Append(sizeof(int))
                 .Append(FungeContext.HandPrint.Aggregate(0, (cur, c) => cur * 5 + c))
                 .Append(FungeContext.NumericVersion)
-                .Append(0) //use system();
+                .Append(1) //use system();
                 .Append(Path.DirectorySeparatorChar)
                 .Append(fungeContext.Dimension)
                 .Append(fungeContext.CurrentThread.Id)
@@ -34,12 +34,12 @@ namespace funge_98.Commands.Befunge98Commands
                 .Append(DateTime.Now.Hour * 256 * 256 + DateTime.Now.Minute * 256 + DateTime.Now.Second)
                 .Append(fungeContext.Stacks.Count)
                 .Concat(fungeContext.Stacks.Select(s => s.Count).Reverse()).ToArray();
-            
+
             if (value > 0)
             {
                 if (value > values.Length)
                 {
-                    fungeContext.PushToTopStack(values[value - values.Length - 1]);   
+                    fungeContext.PushToTopStack(values[value - values.Length - 1]);
                 }
                 else
                     fungeContext.PushToTopStack(values[value - 1]);
@@ -51,7 +51,7 @@ namespace funge_98.Commands.Befunge98Commands
                     fungeContext.PushToTopStack(i);
                 }
             }
-            
+
 
             return null;
         }
@@ -62,6 +62,18 @@ namespace funge_98.Commands.Befunge98Commands
             if (settings.IsConcurrent == OptionStatus.Enable)
             {
                 info |= 1;
+            }
+            if (settings.IsInputFileSupported == OptionStatus.Enable)
+            {
+                info |= 2;
+            }
+            if (settings.IsOutputFileSupported == OptionStatus.Enable)
+            {
+                info |= 4;
+            }
+            if (settings.IsInputFileSupported == OptionStatus.Enable)
+            {
+                info |= 8;
             }
 
             return info;

@@ -31,15 +31,16 @@ namespace funge_98.ExecutionContexts
 
         public override CustomSettings Settings
         {
-            get => new CustomSettings
-            {
-                WarnIfCommandNotSupported = OptionStatus.NotSupported,
-                IsConcurrent = OptionStatus.NotSupported,
-                IsInputFileSupported = OptionStatus.NotSupported,
-                IsOutputFileSupported = OptionStatus.NotSupported,
-                IsSystemCallSupported = OptionStatus.NotSupported,
-                UnimplementedPolicy = UnimplementedPolicy.WarnUser
-            };
+            get =>
+                new CustomSettings
+                {
+                    WarnIfCommandNotSupported = OptionStatus.NotSupported,
+                    IsConcurrent = OptionStatus.Enable,
+                    IsInputFileSupported = OptionStatus.Enable,
+                    IsOutputFileSupported = OptionStatus.Enable,
+                    IsSystemCallSupported = OptionStatus.Enable,
+                    UnimplementedPolicy = UnimplementedPolicy.WarnUser
+                };
             set { }
         }
 
