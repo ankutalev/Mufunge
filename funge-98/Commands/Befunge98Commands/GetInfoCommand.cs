@@ -38,8 +38,11 @@ namespace funge_98.Commands.Befunge98Commands
             if (value > 0)
             {
                 if (value > values.Length)
-                    return null;
-                fungeContext.PushToTopStack(values[value - 1]);
+                {
+                    fungeContext.PushToTopStack(values[value - values.Length - 1]);   
+                }
+                else
+                    fungeContext.PushToTopStack(values[value - 1]);
             }
             else
             {
@@ -48,6 +51,7 @@ namespace funge_98.Commands.Befunge98Commands
                     fungeContext.PushToTopStack(i);
                 }
             }
+            
 
             return null;
         }
