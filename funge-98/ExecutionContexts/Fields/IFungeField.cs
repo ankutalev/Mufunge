@@ -7,8 +7,10 @@ namespace funge_98.ExecutionContexts.Fields
     {
         void InitField(IEnumerable<string> source);
         void ModifyCell(DeltaVector target, int value);
-        int [] GetMaxCoords();
         int GetValue(DeltaVector dv);
         bool IsOutOfBounds(DeltaVector dv);
+        DeltaVector GetLeastPoint();
+
+        DeltaVector GetGreatestPoint();
     }
 }

@@ -47,5 +47,7 @@ namespace funge_98.Languages
 
             return error;
         }
+
+        public int ExitCode => _executionContext.ExitCode;
     }
 }

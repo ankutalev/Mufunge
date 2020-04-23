@@ -49,6 +49,10 @@ namespace funge_98.ExecutionContexts
             set => CurrentThread.DeltaVector = value;
         }
 
+        public int ExitCode { get; set; }
+        public static string HandPrint => "Mufunge";
+        public static int NumericVersion => 100;
+
         public void InitField(IEnumerable<string> source) => _field.InitField(source);
 
         public bool IsSupported(ICommand command)
@@ -162,5 +166,9 @@ namespace funge_98.ExecutionContexts
         public abstract void ProcessSpace();
         public void StopCurrentThread() => CurrentThread.Alive = false;
         public int GetCellValue(DeltaVector cell) => _field.GetValue(cell);
+
+        public DeltaVector GetLeastPoint() =>_field.GetLeastPoint();
+
+        public DeltaVector GetGreatestPoint() => _field.GetGreatestPoint();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using funge_98.Enums;
@@ -14,6 +15,8 @@ namespace funge_98.ExecutionContexts
             set => _coords[0] = value;
         }
 
+        public double Distance(DeltaVector dv) => Math.Sqrt(_coords.Zip(dv._coords, (a,b)=>a-b).Select(x=>x*x).Aggregate(0, (a, b) => a + b));
+
         public int Y
         {
             get => _coords[1];
@@ -26,11 +29,7 @@ namespace funge_98.ExecutionContexts
             set => _coords[2] = value;
         }
 
-        public int[] Coords
-        {
-            get => _coords;
-            set => _coords = value.ToArray();
-        }
+        public int[] Coords(int dimension) => _coords.Take(dimension).ToArray();
 
         public DeltaVector(int x, int y, int z)
         {

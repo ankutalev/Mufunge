@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Linq;
 using Attributes;
 using funge_98.Enums;
@@ -14,10 +16,25 @@ namespace funge_98.Commands.Befunge98Commands
         {
             //todo
             var value = fungeContext.GetTopStackTopValues(1)[0];
-            var values = Enumerable.Repeat(0, 20).ToArray();
-            values[1] = sizeof(int);
-            values[5] = '\n';
-            values[6] = 2;
+            var values = Enumerable.Repeat(0, 1)
+                .Append(sizeof(int))
+                .Append(FungeContext.HandPrint.Aggregate(0, (cur, c) => cur * 5 + c))
+                .Append(FungeContext.NumericVersion)
+                .Append(0) //use system();
+                .Append(Path.DirectorySeparatorChar)
+                .Append(fungeContext.Dimension)
+                .Append(fungeContext.CurrentThread.Id)
+                .Append(0) //teamId not supported
+                .Concat(fungeContext.CurrentThread.CurrentPosition.Coords(fungeContext.Dimension).Reverse())
+                .Concat(fungeContext.CurrentThreadDeltaVector.Coords(fungeContext.Dimension).Reverse())
+                .Concat(fungeContext.CurrentThread.StorageOffset.Coords(fungeContext.Dimension).Reverse())
+                .Concat(fungeContext.GetLeastPoint().Coords(fungeContext.Dimension).Reverse())
+                .Concat(fungeContext.GetGreatestPoint().Coords(fungeContext.Dimension).Reverse())
+                .Append((DateTime.Now.Year - 1900) * 256 * 256 + DateTime.Now.Month * 256 + DateTime.Now.Day)
+                .Append(DateTime.Now.Hour * 256 * 256 + DateTime.Now.Minute * 256 + DateTime.Now.Second)
+                .Append(fungeContext.Stacks.Count)
+                .Concat(fungeContext.Stacks.Select(s => s.Count).Reverse()).ToArray();
+            
             if (value > 0)
             {
                 if (value > values.Length)

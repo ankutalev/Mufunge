@@ -37,7 +37,7 @@ namespace funge_98.Commands.Befunge98Commands
 
             for (int i = 0; i < fungeContext.Dimension; i++)
             { 
-                fungeContext.Stacks.Peek().Push(storageOffset.Coords[i]);
+                fungeContext.Stacks.Peek().Push(storageOffset.Coords(fungeContext.Dimension)[i]);
             }
 
             currentThread.StorageOffset = currentThread.CurrentPosition + currentThread.DeltaVector;

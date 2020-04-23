@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using funge_98.Exceptions;
@@ -48,10 +49,6 @@ namespace funge_98.ExecutionContexts.Fields
             _field[target.Y][target.X] = (char) value;
         }
 
-        public int[] GetMaxCoords()
-        {
-            return new[] {25, 80};
-        }
 
         public int GetValue(DeltaVector dv)
         {
@@ -61,6 +58,16 @@ namespace funge_98.ExecutionContexts.Fields
         public bool IsOutOfBounds(DeltaVector currentPosition)
         {
             return currentPosition.X < 0 || currentPosition.X >= 80 || currentPosition.Y < 0 || currentPosition.Y >= 25;
+        }
+
+        public DeltaVector GetLeastPoint()
+        {
+            throw new NotImplementedException("Not available at Befunge-93");
+        }
+
+        public DeltaVector GetGreatestPoint()
+        {
+            throw new NotImplementedException("Not available at Befunge-93");
         }
     }
 }

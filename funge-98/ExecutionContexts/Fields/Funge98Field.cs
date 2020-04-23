@@ -14,26 +14,16 @@ namespace funge_98.ExecutionContexts.Fields
 
         public void InitField(IEnumerable<string> source)
         {
-            int i = 0;
+            int y = 0;
             foreach (var line in source)
             {
-                _field[i] = new Dictionary<int, int>();
-                for (var j = 0; j < line.Length; j++)
+                for (var x = 0; x < line.Length; x++)
                 {
-                    _field[i][j] = line[j];
+                    var c = line[x];
+                    ModifyCell(new DeltaVector(x,y,0), c);
                 }
-
-                if (line.Length > _maxX)
-                {
-                    _maxX = line.Length;
-                }
-
-                i++;
+                y++;
             }
-
-            _minY = 0;
-            _minX = 0;
-            _maxY = i;
         }
 
         public void ModifyCell(DeltaVector target, int value)
@@ -47,10 +37,13 @@ namespace funge_98.ExecutionContexts.Fields
                 _field[target.Y] = new Dictionary<int, int>{ {target.X, value}};
             }
 
-            _maxX = Math.Max(target.X, _maxX);
-            _minX = Math.Min(target.X, _minX);
-            _maxY = Math.Max(target.Y, _maxY);
-            _minY = Math.Min(target.Y, _minY);
+            if (value != ' ')
+            {
+                _maxX = Math.Max(target.X, _maxX);
+                _minX = Math.Min(target.X, _minX);
+                _maxY = Math.Max(target.Y, _maxY);
+                _minY = Math.Min(target.Y, _minY);
+            }
         }    
 
         public int[] GetMaxCoords()
@@ -73,5 +66,10 @@ namespace funge_98.ExecutionContexts.Fields
         {
             return !(dv.Y <= _maxY && dv.Y >= _minY && dv.X >= _minX && dv.X <= _maxX);
         }
+
+        public DeltaVector GetLeastPoint() => new DeltaVector(_minX,_minY,0);
+
+        public DeltaVector GetGreatestPoint() => new DeltaVector(_maxX,_maxY, 0) + GetLeastPoint().Reflect();
+
     }
 }
