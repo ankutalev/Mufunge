@@ -18,7 +18,7 @@ namespace funge_98.Languages
             _parser = parser;
         }
 
-        public int Tick { get; set; }
+        public static int Tick { get; set; } = -1;
 
         public string NextStep()
         {
@@ -28,9 +28,14 @@ namespace funge_98.Languages
             {
                 var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
                 var command = _commandProducer.GetCommand(commandName);
-                command.Execute(_executionContext);
                 if (command.CanTick)
                     Tick += 1;
+                if (Tick == 7500)
+                {
+                    ;
+                }
+                command.Execute(_executionContext);
+               
             }
 
             return null;

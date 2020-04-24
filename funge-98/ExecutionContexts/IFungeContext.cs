@@ -4,6 +4,8 @@ using Attributes;
 using funge_98.Commands;
 using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
+using funge_98.Languages;
+using Befunge93 = Attributes.Befunge93;
 
 namespace funge_98.ExecutionContexts
 {
@@ -31,6 +33,19 @@ namespace funge_98.ExecutionContexts
         public abstract string Version { get; }
         public abstract int Dimension { get; }
 
+        public string PopString()
+        {
+            var res = Enumerable.Repeat('\0',0);
+            char c;
+            while (Stacks.Peek().Count!=0 && (c = (char) Stacks.Peek().Pop()) != '\0')
+            {
+                res =res.Append(c);
+            }
+
+            return new string(res.ToArray());
+
+        } 
+
         public bool InterpreterAlive
         {
             get => Threads.All(x => x.Alive);
@@ -52,6 +67,7 @@ namespace funge_98.ExecutionContexts
         public int ExitCode { get; set; }
         public static string HandPrint => "Mufunge";
         public static int NumericVersion => 100;
+        public bool StringMode { get; set; }
 
         public void InitField(IEnumerable<string> source) => _field.InitField(source);
 
@@ -145,8 +161,14 @@ namespace funge_98.ExecutionContexts
             do
             {
                 CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
+            } while (_field.IsOutOfBounds(CurrentThread.CurrentPosition));
+            
+            do
+            {
+                CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
             } while (!_field.IsOutOfBounds(CurrentThread.CurrentPosition));
 
+            
             CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
         }
@@ -157,11 +179,13 @@ namespace funge_98.ExecutionContexts
             {
                 MoveOnce();
                 var c = GetCellValue(CurrentThread.CurrentPosition);
+                FungeFamilyLanguage.Tick++;
                 if (c == '"')
                     break;
                 PushToTopStack(c);
             }
         }
+
 
         public abstract void ProcessSpace();
         public void StopCurrentThread() => CurrentThread.Alive = false;

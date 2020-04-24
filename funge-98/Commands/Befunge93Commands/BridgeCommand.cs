@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.MoveOnce();
+            fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThreadDeltaVector;
             return null;
         }
     }

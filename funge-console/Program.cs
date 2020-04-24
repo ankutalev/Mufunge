@@ -10,7 +10,7 @@ namespace funge_console
         {
             var kunteynir = new Container.Container(new List<string>{"funge-98"});
             var cp =  kunteynir.Resolve<Befunge98>();
-            var result = cp.RunProgram(args[0],true);
+            var result = cp.RunProgram(args[0],false);
             if (result != null)
             {
                 Console.Write(c);

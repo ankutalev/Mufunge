@@ -26,9 +26,14 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         {
             var newDelta = Name switch
             {
-                '?' => _directions.ToArray()[new Random().Next(0,4)].Value,
+                '?' => _directions.ToArray()[new Random().Next(0, 4)].Value,
                 _ => _directions[Name]
             };
+
+            if (fungeContext.Dimension == 1)
+            {
+                newDelta =  _directions.ToArray()[new Random().Next(0, 2)].Value;
+            }
             fungeContext.CurrentThread.DeltaVector = newDelta;
             return null;
         }

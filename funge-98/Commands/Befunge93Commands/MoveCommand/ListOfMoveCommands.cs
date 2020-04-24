@@ -33,4 +33,12 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         {
         }
     }
+    
+    [ContainerElement, Unefunge]
+    public class MoveRandom : MoveCommand
+    {
+        public MoveRandom() : base('?')
+        {
+        }
+    }
 }

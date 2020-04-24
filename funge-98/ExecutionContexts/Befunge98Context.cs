@@ -3,6 +3,7 @@ using Attributes;
 using funge_98.Enums;
 using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
+using funge_98.Languages;
 
 namespace funge_98.ExecutionContexts
 {
@@ -57,7 +58,11 @@ namespace funge_98.ExecutionContexts
                 MoveOnce();
                 var c = GetCellValue(CurrentThread.CurrentPosition);
                 if (c == '"')
+                {
+                    FungeFamilyLanguage.Tick++;
                     break;
+                }
+
                 if (c == ' ')
                 {
                     do
@@ -66,6 +71,7 @@ namespace funge_98.ExecutionContexts
                     } while (GetCellValue(CurrentThread.CurrentPosition) == ' ');
                     CurrentThread.CurrentPosition += CurrentThreadDeltaVector.Reflect();
                 }
+                FungeFamilyLanguage.Tick++;
                 PushToTopStack(c);
             }
         }
