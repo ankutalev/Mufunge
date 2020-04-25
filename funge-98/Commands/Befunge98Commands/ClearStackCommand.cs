@@ -12,7 +12,7 @@ namespace funge_98.Commands.Befunge98Commands
         {
             if (fungeContext.Stacks.Count != 0)
             {
-                fungeContext.Stacks.Pop();
+                fungeContext.Stacks.Peek().Clear();
             }
 
             return null;
