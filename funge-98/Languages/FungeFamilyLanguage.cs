@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 using funge_98.ExecutionContexts;
 using funge_98.FactoriesStuff;
 using funge_98.Parsers;
@@ -17,7 +17,7 @@ namespace funge_98.Languages
             _commandProducer = commandProducer;
             _parser = parser;
         }
-
+        
         public int Ticks => _executionContext.Ticks;
 
         public string NextStep()    
@@ -26,12 +26,13 @@ namespace funge_98.Languages
             
             foreach (var thread in _executionContext.Threads)
             {
+                _executionContext.CurrentThread = thread;
                 var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
                 var command = _commandProducer.GetCommand(commandName);
                 command.Execute(_executionContext);
-                _executionContext.MoveOnce();
-            } 
-
+                _executionContext.MoveCurrentThread();
+            }
+            _executionContext.Threads = _executionContext.SpawnedThreads.Concat(_executionContext.Threads).ToList();
             return null;
         }
 

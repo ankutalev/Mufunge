@@ -60,5 +60,12 @@ namespace funge_98.ExecutionContexts
         {
             return new DeltaVector(a._coords.Zip(b._coords, (f, s) => f + s).ToArray());
         }
+
+        public DeltaVector Copy()
+        {
+            var nc = new int[_coords.Length];
+            _coords.CopyTo(nc,0);
+            return new DeltaVector(nc);
+        }
     }
 }

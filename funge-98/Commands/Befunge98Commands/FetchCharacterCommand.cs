@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge98Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.MoveOnce();
+            fungeContext.MoveCurrentThread();
             var fetched = fungeContext.GetCellValue(fungeContext.CurrentThread.CurrentPosition);
             fungeContext.PushToTopStack(fetched);
             return null;

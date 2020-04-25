@@ -143,7 +143,7 @@ namespace funge_98.ExecutionContexts
 
         public void ModifyCell(DeltaVector target, int value) => _field.ModifyCell(target, value);
 
-        public void MoveOnce()
+        public void MoveCurrentThread()
         {
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
             if (!_field.IsOutOfBounds(CurrentThread.CurrentPosition))

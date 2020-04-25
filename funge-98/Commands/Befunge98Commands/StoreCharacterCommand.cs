@@ -13,7 +13,7 @@ namespace funge_98.Commands.Befunge98Commands
             var value = fungeContext.GetTopStackTopValues(1)[0];
             fungeContext.ModifyCell(fungeContext.CurrentThread.CurrentPosition + fungeContext.CurrentThreadDeltaVector,
                 value);
-            fungeContext.MoveOnce();
+            fungeContext.MoveCurrentThread();
             return null;
         }
     }

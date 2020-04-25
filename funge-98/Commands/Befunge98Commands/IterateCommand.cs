@@ -22,7 +22,7 @@ namespace funge_98.Commands.Befunge98Commands
             var n = fungeContext.GetTopStackTopValues(1)[0];
             if (n == 0)
             {
-                fungeContext.MoveOnce();
+                fungeContext.MoveCurrentThread();
                 return null;
             }
 
