@@ -1,3 +1,4 @@
+using System.Linq;
 using Attributes;
 using funge_98.ExecutionContexts;
 
@@ -10,7 +11,10 @@ namespace funge_98.Commands.Befunge93Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.StorageGet();
+            var coords = fungeContext.GetTopStackTopValues(fungeContext.Dimension);
+            var value = fungeContext.GetCellValue(new DeltaVector(coords.Reverse().ToArray()) +
+                                                  fungeContext.CurrentThread.StorageOffset);
+            fungeContext.PushToTopStack(value);
             return null;
         }
     }

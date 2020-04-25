@@ -4,7 +4,6 @@ using Attributes;
 using funge_98.Commands;
 using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
-using funge_98.Languages;
 using Befunge93 = Attributes.Befunge93;
 
 namespace funge_98.ExecutionContexts
@@ -35,16 +34,15 @@ namespace funge_98.ExecutionContexts
 
         public string PopString()
         {
-            var res = Enumerable.Repeat('\0',0);
+            var res = Enumerable.Repeat('\0', 0);
             char c;
-            while (Stacks.Peek().Count!=0 && (c = (char) Stacks.Peek().Pop()) != '\0')
+            while (Stacks.Peek().Count != 0 && (c = (char) Stacks.Peek().Pop()) != '\0')
             {
-                res =res.Append(c);
+                res = res.Append(c);
             }
 
             return new string(res.ToArray());
-
-        } 
+        }
 
         public bool InterpreterAlive
         {
@@ -67,7 +65,8 @@ namespace funge_98.ExecutionContexts
         public int ExitCode { get; set; }
         public static string HandPrint => "Mufunge";
         public static int NumericVersion => 100;
-        public bool StringMode { get; set; }
+        public bool StringMode { get; set; } = false;
+        public int Ticks { get; set; } = -1;
 
         public void InitField(IEnumerable<string> source) => _field.InitField(source);
 
@@ -144,13 +143,6 @@ namespace funge_98.ExecutionContexts
 
         public void ModifyCell(DeltaVector target, int value) => _field.ModifyCell(target, value);
 
-        public void StorageGet()
-        {
-            var coords = GetTopStackTopValues(Dimension);
-            var value = GetCellValue(new DeltaVector(coords.Reverse().ToArray()));
-            PushToTopStack(value);
-        }
-
         public void MoveOnce()
         {
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
@@ -162,36 +154,21 @@ namespace funge_98.ExecutionContexts
             {
                 CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
             } while (_field.IsOutOfBounds(CurrentThread.CurrentPosition));
-            
+
             do
             {
                 CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
             } while (!_field.IsOutOfBounds(CurrentThread.CurrentPosition));
 
-            
+
             CurrentThreadDeltaVector = CurrentThreadDeltaVector.Reflect();
             CurrentThread.CurrentPosition += CurrentThreadDeltaVector;
         }
 
-        public virtual void ToggleStringMode()
-        {
-            while (true)
-            {
-                MoveOnce();
-                var c = GetCellValue(CurrentThread.CurrentPosition);
-                FungeFamilyLanguage.Tick++;
-                if (c == '"')
-                    break;
-                PushToTopStack(c);
-            }
-        }
-
-
-        public abstract void ProcessSpace();
         public void StopCurrentThread() => CurrentThread.Alive = false;
         public int GetCellValue(DeltaVector cell) => _field.GetValue(cell);
 
-        public DeltaVector GetLeastPoint() =>_field.GetLeastPoint();
+        public DeltaVector GetLeastPoint() => _field.GetLeastPoint();
 
         public DeltaVector GetGreatestPoint() => _field.GetGreatestPoint();
     }
