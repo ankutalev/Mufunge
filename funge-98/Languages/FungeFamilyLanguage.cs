@@ -18,9 +18,9 @@ namespace funge_98.Languages
             _parser = parser;
         }
 
-        public static int Tick { get; set; } = -1;
+        public int Ticks => _executionContext.Ticks;
 
-        public string NextStep()
+        public string NextStep()    
         {
             //todo need think about it
             
@@ -28,15 +28,9 @@ namespace funge_98.Languages
             {
                 var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
                 var command = _commandProducer.GetCommand(commandName);
-                if (command.CanTick)
-                    Tick += 1;
-                if (Tick == 7500)
-                {
-                    ;
-                }
                 command.Execute(_executionContext);
-               
-            }
+                _executionContext.MoveOnce();
+            } 
 
             return null;
         }

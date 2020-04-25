@@ -3,7 +3,6 @@ using Attributes;
 using funge_98.Enums;
 using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
-using funge_98.Languages;
 
 namespace funge_98.ExecutionContexts
 {
@@ -19,9 +18,8 @@ namespace funge_98.ExecutionContexts
         };
 
 
-        public Befunge98Context(List<IFingerPrint> fps) : base( fps, new Funge98Field())
+        public Befunge98Context(List<IFingerPrint> fps) : base(fps, new Funge98Field())
         {
-            
         }
 
         internal override List<InstructionPointer> Threads
@@ -47,33 +45,5 @@ namespace funge_98.ExecutionContexts
 
         public override string Version { get; } = "Befunge-98";
         public override int Dimension { get; } = 2;
-        public override void ProcessSpace()
-        {
-        }
-        
-        public override void ToggleStringMode()
-        {
-            while (true)
-            {
-                MoveOnce();
-                var c = GetCellValue(CurrentThread.CurrentPosition);
-                if (c == '"')
-                {
-                    FungeFamilyLanguage.Tick++;
-                    break;
-                }
-
-                if (c == ' ')
-                {
-                    do
-                    {
-                        MoveOnce();
-                    } while (GetCellValue(CurrentThread.CurrentPosition) == ' ');
-                    CurrentThread.CurrentPosition += CurrentThreadDeltaVector.Reflect();
-                }
-                FungeFamilyLanguage.Tick++;
-                PushToTopStack(c);
-            }
-        }
     }
 }

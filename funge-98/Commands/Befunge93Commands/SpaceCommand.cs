@@ -7,13 +7,10 @@ namespace funge_98.Commands.Befunge93Commands
     public class SpaceCommand : ICommand
     {
         public char Name { get; } = ' ';
-
         public string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.ProcessSpace();
             return null;
         }
-
         public bool CanTick => false;
     }
 }

@@ -44,10 +44,6 @@ namespace funge_98.ExecutionContexts
 
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
-
-        public override void ProcessSpace()
-        {
-        }
         
     }
 }

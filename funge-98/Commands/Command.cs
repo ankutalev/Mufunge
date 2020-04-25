@@ -7,20 +7,43 @@ namespace funge_98.Commands
     {
         public string Execute(FungeContext fungeContext)
         {
-            if (!fungeContext.IsSupported(this))
+            if (fungeContext.StringMode)
             {
-                if (fungeContext.Settings.WarnIfCommandNotSupported==OptionStatus.Enable)
+                switch (Name)
                 {
-                    return $"{fungeContext.Version} not supporting  {Name} command";
+                    case '"':
+                        RealExecute(fungeContext);
+                        _prev = Name;
+                        fungeContext.Ticks++;
+                        return null;
+                    case ' ' when _prev == ' ':
+                        return null;
                 }
-                fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
+
+                fungeContext.PushToTopStack(Name);
+                fungeContext.Ticks++;
+                _prev = Name;
                 return null;
             }
             
-            var error =  RealExecute(fungeContext);
-            fungeContext.MoveOnce();
+            if (!fungeContext.IsSupported(this))
+            {
+                if (fungeContext.Settings.WarnIfCommandNotSupported == OptionStatus.Enable)
+                {
+                    return $"{fungeContext.Version} not supporting  {Name} command";
+                }
+
+                fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
+                return null;
+            }
+
+            var error = RealExecute(fungeContext);
+            if (CanTick)
+                fungeContext.Ticks++;
             return error;
         }
+
+        private static int _prev;
 
         public char Name { get; }
 

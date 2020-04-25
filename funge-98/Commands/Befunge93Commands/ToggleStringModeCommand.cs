@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge93Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            fungeContext.ToggleStringMode();
+            fungeContext.StringMode = !fungeContext.StringMode;
             return null;
         }
     }

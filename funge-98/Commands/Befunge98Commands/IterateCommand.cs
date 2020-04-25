@@ -42,7 +42,6 @@ namespace funge_98.Commands.Befunge98Commands
                 for (int i = 0; i < n; i++)
                 {
                     command?.Execute(fungeContext);
-                    fungeContext.CurrentThread.CurrentPosition += fungeContext.CurrentThreadDeltaVector.Reflect();
                 }
 
                 return null;
