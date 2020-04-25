@@ -13,9 +13,7 @@ namespace funge_98.Commands.Befunge98Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            //todo
             var filename = fungeContext.PopString();
-            Console.WriteLine(filename);
             var flag = fungeContext.GetTopStackTopValues(1)[0];
             var vec = new DeltaVector(fungeContext.GetTopStackTopValues(fungeContext.Dimension).Reverse().ToArray());
             if (!File.Exists(filename))
@@ -30,11 +28,11 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 using var fs = File.OpenRead(filename);
                 using var reader = new BinaryReader(fs);
-                // Read in all pairs.
+                var target = vec + fungeContext.CurrentThread.StorageOffset;
                 while (reader.BaseStream.Position != reader.BaseStream.Length)
                 {
-                    var target = vec + fungeContext.CurrentThread.StorageOffset;
-                    fungeContext.ModifyCell(target, reader.Read());
+                    var c = reader.Read();
+                    fungeContext.ModifyCell(target, c);
                     target.X += 1;
                 }
 
