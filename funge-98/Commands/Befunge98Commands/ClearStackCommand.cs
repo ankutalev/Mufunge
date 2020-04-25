@@ -10,9 +10,9 @@ namespace funge_98.Commands.Befunge98Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.Stacks.Count != 0)
+            if (fungeContext.CurrentThread.Stacks.Count != 0)
             {
-                fungeContext.Stacks.Peek().Clear();
+                fungeContext.CurrentThread.Stacks.Peek().Clear();
             }
 
             return null;

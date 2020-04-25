@@ -9,6 +9,8 @@ namespace funge_98.ExecutionContexts
     [Funge98]
     public class Befunge98Context : FungeContext
     {
+        internal override List<InstructionPointer> SpawnedThreads { get; set; }
+
         internal override InstructionPointer CurrentThread { get; set; } = new InstructionPointer
         {
             StorageOffset = new DeltaVector(0, 0, 0),

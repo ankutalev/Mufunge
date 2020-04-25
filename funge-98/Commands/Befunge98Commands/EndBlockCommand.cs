@@ -11,7 +11,7 @@ namespace funge_98.Commands.Befunge98Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.Stacks.Count < 2)
+            if (fungeContext.CurrentThread.Stacks.Count < 2)
             {
                 fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
                 return null;
@@ -21,7 +21,7 @@ namespace funge_98.Commands.Befunge98Commands
             var n = fungeContext.GetTopStackTopValues(1)[0];
             var values = n > 0 ? fungeContext.GetTopStackTopValues(n) : new int[0];
             //remove toss
-            fungeContext.Stacks.Pop();
+            fungeContext.CurrentThread.Stacks.Pop();
 
             // restore offset
             var storageOffset = fungeContext.GetTopStackTopValues(fungeContext.Dimension);
@@ -36,7 +36,7 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 foreach (var value in values.Reverse())
                 {
-                    fungeContext.Stacks.Peek().Push(value);
+                    fungeContext.CurrentThread.Stacks.Peek().Push(value);
                 }
             }
 

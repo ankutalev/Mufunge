@@ -10,7 +10,7 @@ namespace funge_98.Commands.Befunge98Commands
 
         public string RealExecute(FungeContext fungeContext)
         {
-            if (fungeContext.Stacks.Count == 1)
+            if (fungeContext.CurrentThread.Stacks.Count == 1)
             {
                 fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
                 return null;
@@ -26,25 +26,25 @@ namespace funge_98.Commands.Befunge98Commands
 
             if (n > 0)
             {
-                var top = fungeContext.Stacks.Pop();
+                var top = fungeContext.CurrentThread.Stacks.Pop();
                 var values = fungeContext.GetTopStackTopValues(n);
                 foreach (var value in values)
                 {
                     top.Push(value);
                 }
 
-                fungeContext.Stacks.Push(top);
+                fungeContext.CurrentThread.Stacks.Push(top);
             }
             else
             {
                 var values = fungeContext.GetTopStackTopValues(-n);
-                var top = fungeContext.Stacks.Pop();
+                var top = fungeContext.CurrentThread.Stacks.Pop();
                 foreach (var value in values)
                 {
-                    fungeContext.Stacks.Peek().Push(value);
+                    fungeContext.CurrentThread.Stacks.Peek().Push(value);
                 }
 
-                fungeContext.Stacks.Push(top);
+                fungeContext.CurrentThread.Stacks.Push(top);
             }
 
             return null;

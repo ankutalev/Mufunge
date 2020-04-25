@@ -12,16 +12,16 @@ namespace funge_98.ExecutionContexts
     {
         private readonly IFungeField _field;
         private readonly Dictionary<char, bool> _supportedCommands = new Dictionary<char, bool>();
-        internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
 
         internal abstract List<InstructionPointer> Threads { get; set; }
+        
+        internal abstract List<InstructionPointer> SpawnedThreads { get; set; }
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
         protected FungeContext(List<IFingerPrint> fps, IFungeField field)
         {
             _field = field;
-            Stacks.Push(new Stack<int>());
             SupportedFingerPrints = fps;
         }
 
@@ -36,7 +36,7 @@ namespace funge_98.ExecutionContexts
         {
             var res = Enumerable.Repeat('\0', 0);
             char c;
-            while (Stacks.Peek().Count != 0 && (c = (char) Stacks.Peek().Pop()) != '\0')
+            while (CurrentThread.Stacks.Peek().Count != 0 && (c = (char) CurrentThread.Stacks.Peek().Pop()) != '\0')
             {
                 res = res.Append(c);
             }
@@ -109,13 +109,13 @@ namespace funge_98.ExecutionContexts
 
         public int[] GetTopStackTopValues(int count)
         {
-            if (Stacks.Count == 0)
+            if (CurrentThread.Stacks.Count == 0)
             {
-                Stacks.Push(new Stack<int>());
+                CurrentThread.Stacks.Push(new Stack<int>());
             }
 
             var res = new int[count];
-            var top = Stacks.Peek();
+            var top = CurrentThread.Stacks.Peek();
             for (var i = 0; i < count; i++)
             {
                 if (top.Count == 0)
@@ -133,12 +133,12 @@ namespace funge_98.ExecutionContexts
 
         public void PushToTopStack(int value)
         {
-            if (Stacks.Count == 0)
+            if (CurrentThread.Stacks.Count == 0)
             {
-                Stacks.Push(new Stack<int>());
+                CurrentThread.Stacks.Push(new Stack<int>());
             }
 
-            Stacks.Peek().Push(value);
+            CurrentThread.Stacks.Peek().Push(value);
         }
 
         public void ModifyCell(DeltaVector target, int value) => _field.ModifyCell(target, value);

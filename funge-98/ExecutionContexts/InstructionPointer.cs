@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace funge_98.ExecutionContexts
 {
     public class InstructionPointer
@@ -16,5 +18,8 @@ namespace funge_98.ExecutionContexts
 
         public bool Alive { get; set; } = true;
         public int Id { get; }
+        
+        internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
+
     }
 }

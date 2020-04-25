@@ -32,8 +32,8 @@ namespace funge_98.Commands.Befunge98Commands
                 .Concat(fungeContext.GetGreatestPoint().Coords(fungeContext.Dimension).Reverse())
                 .Append((DateTime.Now.Year - 1900) * 256 * 256 + DateTime.Now.Month * 256 + DateTime.Now.Day)
                 .Append(DateTime.Now.Hour * 256 * 256 + DateTime.Now.Minute * 256 + DateTime.Now.Second)
-                .Append(fungeContext.Stacks.Count)
-                .Concat(fungeContext.Stacks.Select(s => s.Count).Reverse()).ToArray();
+                .Append(fungeContext.CurrentThread.Stacks.Count)
+                .Concat(fungeContext.CurrentThread.Stacks.Select(s => s.Count).Reverse()).ToArray();
 
             if (value > 0)
             {

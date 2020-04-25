@@ -28,7 +28,7 @@ namespace funge_98.Commands.Befunge98Commands
             {
                 foreach (var i in Enumerable.Repeat(0,-n))
                 {
-                    fungeContext.Stacks.Peek().Push(i);
+                    fungeContext.CurrentThread.Stacks.Peek().Push(i);
                 }
             }
 
@@ -37,11 +37,11 @@ namespace funge_98.Commands.Befunge98Commands
 
             for (int i = 0; i < fungeContext.Dimension; i++)
             { 
-                fungeContext.Stacks.Peek().Push(storageOffset.Coords(fungeContext.Dimension)[i]);
+                fungeContext.CurrentThread.Stacks.Peek().Push(storageOffset.Coords(fungeContext.Dimension)[i]);
             }
 
             currentThread.StorageOffset = currentThread.CurrentPosition + currentThread.DeltaVector;
-            fungeContext.Stacks.Push(newStack);
+            fungeContext.CurrentThread.Stacks.Push(newStack);
             return null;
         }
     }
