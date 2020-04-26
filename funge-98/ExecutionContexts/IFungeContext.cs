@@ -4,7 +4,6 @@ using Attributes;
 using funge_98.Commands;
 using funge_98.ExecutionContexts.Fields;
 using funge_98.FingerPrints;
-using Befunge93 = Attributes.Befunge93;
 
 namespace funge_98.ExecutionContexts
 {
@@ -15,7 +14,7 @@ namespace funge_98.ExecutionContexts
 
         internal abstract List<InstructionPointer> Threads { get; set; }
         
-        internal abstract List<InstructionPointer> SpawnedThreads { get; set; }
+        internal abstract List<InstructionPointer> SpawnedThreads { get; }
 
         internal abstract InstructionPointer CurrentThread { get; set; }
 
@@ -46,7 +45,7 @@ namespace funge_98.ExecutionContexts
 
         public bool InterpreterAlive
         {
-            get => Threads.All(x => x.Alive);
+            get => Threads.Any(x => x.Alive);
             protected set
             {
                 if (value)
@@ -65,8 +64,6 @@ namespace funge_98.ExecutionContexts
         public int ExitCode { get; set; }
         public static string HandPrint => "Mufunge";
         public static int NumericVersion => 100;
-        public bool StringMode { get; set; } = false;
-        public int Ticks { get; set; } = -1;
 
         public void InitField(IEnumerable<string> source) => _field.InitField(source);
 

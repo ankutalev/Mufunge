@@ -5,6 +5,8 @@ namespace funge_98.ExecutionContexts
     public class InstructionPointer
     {
         private static int _nextId;
+        public char PreviousCommandName;
+
         public InstructionPointer()
         {
             Id = _nextId;
@@ -20,6 +22,6 @@ namespace funge_98.ExecutionContexts
         public int Id { get; }
         
         internal Stack<Stack<int>> Stacks { get; set; } = new Stack<Stack<int>>();
-
+        public bool StringMode { get; set; }
     }
 }

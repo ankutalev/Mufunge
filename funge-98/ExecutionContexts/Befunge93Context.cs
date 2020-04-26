@@ -9,7 +9,7 @@ namespace funge_98.ExecutionContexts
     [Befunge93]
     public class Befunge93Context : FungeContext
     {
-        internal override List<InstructionPointer> SpawnedThreads { get; set; }
+        internal override List<InstructionPointer> SpawnedThreads { get; } = null;
 
         internal override InstructionPointer CurrentThread { get; set; } = new InstructionPointer
         {

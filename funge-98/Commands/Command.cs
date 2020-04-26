@@ -5,24 +5,23 @@ namespace funge_98.Commands
 {
     public interface ICommand
     {
+        public static string Notick = "no_tick";
         public string Execute(FungeContext fungeContext)
         {
-            if (fungeContext.StringMode)
+            if (fungeContext.CurrentThread.StringMode)
             {
                 switch (Name)
                 {
                     case '"':
                         RealExecute(fungeContext);
-                        _prev = Name;
-                        fungeContext.Ticks++;
+                        fungeContext.CurrentThread.PreviousCommandName = Name;
                         return null;
-                    case ' ' when _prev == ' ':
-                        return null;
+                    case ' ' when fungeContext.CurrentThread.PreviousCommandName == ' ':
+                        return Notick;
                 }
 
                 fungeContext.PushToTopStack(Name);
-                fungeContext.Ticks++;
-                _prev = Name;
+                fungeContext.CurrentThread.PreviousCommandName = Name;
                 return null;
             }
             
@@ -38,13 +37,9 @@ namespace funge_98.Commands
             }
 
             var error = RealExecute(fungeContext);
-            if (CanTick)
-                fungeContext.Ticks++;
-            return error;
+            return CanTick ? error : Notick;
         }
-
-        private static int _prev;
-
+        
         public char Name { get; }
 
         public bool CanTick => true;

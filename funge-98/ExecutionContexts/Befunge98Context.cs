@@ -9,26 +9,24 @@ namespace funge_98.ExecutionContexts
     [Funge98]
     public class Befunge98Context : FungeContext
     {
-        internal override List<InstructionPointer> SpawnedThreads { get; set; } = new List<InstructionPointer>();
+        internal override List<InstructionPointer> SpawnedThreads { get; } = new List<InstructionPointer>();
 
-        internal override InstructionPointer CurrentThread { get; set; } = new InstructionPointer
-        {
-            StorageOffset = new DeltaVector(0, 0, 0),
-            DeltaVector = new DeltaVector(1, 0, 0),
-            CurrentPosition = new DeltaVector(0, 0, 0),
-            Alive = true
-        };
+        internal sealed override InstructionPointer CurrentThread { get; set; } 
 
 
         public Befunge98Context(List<IFingerPrint> fps) : base(fps, new Funge98Field())
         {
+            CurrentThread =  new InstructionPointer
+            {
+                StorageOffset = new DeltaVector(0, 0, 0),
+                DeltaVector = new DeltaVector(1, 0, 0),
+                CurrentPosition = new DeltaVector(0, 0, 0),
+                Alive = true
+            };
+            Threads = new List<InstructionPointer> {CurrentThread};
         }
 
-        internal override List<InstructionPointer> Threads
-        {
-            get => new List<InstructionPointer> {CurrentThread};
-            set { }
-        }
+        internal sealed override List<InstructionPointer> Threads { get; set; }
 
         public override CustomSettings Settings
         {
