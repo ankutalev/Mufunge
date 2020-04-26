@@ -40,15 +40,10 @@ namespace Container
                 var types = Enumerable.Empty<Type>();
                 Debug.Assert(_modules != null, nameof(_modules) + " != null");
                 
-                types = _modules.Select(Assembly.Load).Aggregate(types, (current, logicAssembly) =>
-                {
-                    if (logicAssembly != null)
-                        return (current ?? throw new ArgumentNullException(nameof(current))).Concat(
-                            from type in logicAssembly.GetTypes()
-                            where Attribute.IsDefined(type, typeof(ContainerElement))
-                            select type);
-                    return null;
-                });
+                types = _modules.Select(Assembly.Load).Aggregate(types, (current, logicAssembly) => (current ?? throw new ArgumentNullException(nameof(current))).Concat(
+                    from type in logicAssembly.GetTypes()
+                    where Attribute.IsDefined(type, typeof(ContainerElement))
+                    select type));
                 Debug.Assert(types != null, nameof(types) + " != null");
                 _markedTypes = (types).ToList();
             }

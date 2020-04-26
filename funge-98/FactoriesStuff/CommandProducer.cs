@@ -3,7 +3,6 @@ using System.Linq;
 using Attributes;
 using funge_98.Commands;
 using funge_98.Commands.Befunge98Commands;
-using funge_98.FactoriesStuff.Factories;
 using funge_98.FingerPrints;
 
 namespace funge_98.FactoriesStuff

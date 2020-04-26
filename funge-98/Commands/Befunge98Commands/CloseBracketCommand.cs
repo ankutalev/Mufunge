@@ -35,8 +35,7 @@ namespace funge_98.Commands.Befunge98Commands
                 fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();
                 return null;
             }
-
-            foreach (var (key,f) in fp.KeyBinding)
+            foreach (var (key,_) in fp.KeyBinding)
             {
                 _fpc.Find(c=>c.Name ==key)?.UnloadTopAlias();
             }

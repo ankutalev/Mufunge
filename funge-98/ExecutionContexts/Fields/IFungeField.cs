@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 
 namespace funge_98.ExecutionContexts.Fields
@@ -10,7 +9,6 @@ namespace funge_98.ExecutionContexts.Fields
         int GetValue(DeltaVector dv);
         bool IsOutOfBounds(DeltaVector dv);
         DeltaVector GetLeastPoint();
-
         DeltaVector GetGreatestPoint();
     }
 }

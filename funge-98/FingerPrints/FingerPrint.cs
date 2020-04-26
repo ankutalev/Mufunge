@@ -11,6 +11,6 @@ namespace funge_98.FingerPrints
     {
         public string Name { get; }
         public int FingerPrintHash => Name.Aggregate(0, (current, c) => current * 256 + c);
-        public abstract Dictionary<char, Func<FungeContext, string>> KeyBinding { get; }
+        public Dictionary<char, Func<FungeContext, string>> KeyBinding { get; }
     }
 }
