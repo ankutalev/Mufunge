@@ -38,7 +38,8 @@ namespace funge_98.ExecutionContexts
                     IsInputFileSupported = OptionStatus.Enable,
                     IsOutputFileSupported = OptionStatus.Enable,
                     IsSystemCallSupported = OptionStatus.Enable,
-                    UnimplementedPolicy = UnimplementedPolicy.WarnUser
+                    UnimplementedPolicy = UnimplementedPolicy.WarnUser,
+                    SgmlSpaces =  OptionStatus.Enable
                 };
             set { }
         }

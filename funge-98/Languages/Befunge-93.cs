@@ -8,7 +8,7 @@ namespace funge_98.Languages
     [ContainerElement]
     public class Befunge93 : FungeFamilyLanguage
     {
-        public Befunge93(CommandProducer commandProducer, ISourceCodeParser parser) : base(new Befunge93Context(),
+        public Befunge93(CommandProducer commandProducer, Befunge93FileParser parser) : base(new Befunge93Context(),
             commandProducer, parser)
         {
         }

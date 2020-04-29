@@ -9,7 +9,7 @@ namespace funge_98.ExecutionContexts
     [Befunge93]
     public class Befunge93Context : FungeContext
     {
-        internal override List<InstructionPointer> SpawnedThreads { get; } = null;
+        internal override List<InstructionPointer> SpawnedThreads { get; } = new List<InstructionPointer>();
 
         internal override InstructionPointer CurrentThread { get; set; } = new InstructionPointer
         {
@@ -37,13 +37,13 @@ namespace funge_98.ExecutionContexts
                 IsInputFileSupported = OptionStatus.NotSupported,
                 IsOutputFileSupported = OptionStatus.NotSupported,
                 IsSystemCallSupported = OptionStatus.NotSupported,
-                UnimplementedPolicy = UnimplementedPolicy.WarnUser
+                UnimplementedPolicy = UnimplementedPolicy.WarnUser,
+                SgmlSpaces = OptionStatus.NotSupported
             };
             set { }
         }
 
         public override string Version { get; } = "Befunge-93";
         public override int Dimension { get; } = 2;
-        
     }
 }

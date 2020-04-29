@@ -9,6 +9,7 @@ namespace funge_98.ExecutionContexts
         private OptionStatus _isInputFileSupported;
         private OptionStatus _isOutputFileSupported;
         private OptionStatus _warnIfCommandNotSupported;
+        private OptionStatus _sgmlSpaces;
 
         public OptionStatus IsConcurrent
         {
@@ -64,6 +65,18 @@ namespace funge_98.ExecutionContexts
                 _warnIfCommandNotSupported = value;
             }
         }
+        
+        public OptionStatus SgmlSpaces
+        {
+            get => _sgmlSpaces;
+            set
+            {
+                if (_sgmlSpaces == OptionStatus.NotSupported)
+                    return;
+                _sgmlSpaces = value;
+            }
+        }
+        
         public UnimplementedPolicy UnimplementedPolicy { get; set; }
     }
 }

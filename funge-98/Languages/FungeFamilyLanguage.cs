@@ -1,5 +1,7 @@
+using System.IO;
 using System.Linq;
 using funge_98.Commands;
+using funge_98.Exceptions;
 using funge_98.ExecutionContexts;
 using funge_98.FactoriesStuff;
 using funge_98.Parsers;
@@ -44,7 +46,21 @@ namespace funge_98.Languages
 
         public string RunProgram(string[] args, bool onlyStandardExtension)
         {
-            _executionContext.InitField(_parser.GetSourceCode(args[0], onlyStandardExtension));
+            try
+            {
+                _executionContext.InitField(_parser.GetSourceCode(args[0], onlyStandardExtension));
+            }
+            catch (FileNotFoundException)
+            {
+                ExitCode = -1;
+                return $"Can't find file {args[0]}";
+            }
+            catch (ParserException e)
+            {
+                ExitCode = -1;
+                return e.Message;
+            }
+
             _executionContext.ProgramArguments = args;
             string error = null;
             while (error == null && _executionContext.InterpreterAlive)
@@ -55,6 +71,10 @@ namespace funge_98.Languages
             return error;
         }
 
-        public int ExitCode => _executionContext.ExitCode;
+        public int ExitCode
+        {
+            get => _executionContext.ExitCode;
+            private set => _executionContext.ExitCode = value;
+        }
     }
 }

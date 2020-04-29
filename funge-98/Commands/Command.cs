@@ -16,7 +16,7 @@ namespace funge_98.Commands
                         RealExecute(fungeContext);
                         fungeContext.CurrentThread.PreviousCommandName = Name;
                         return null;
-                    case ' ' when fungeContext.CurrentThread.PreviousCommandName == ' ':
+                    case ' ' when fungeContext.CurrentThread.PreviousCommandName == ' ' && fungeContext.Settings.SgmlSpaces == OptionStatus.Enable:
                         return Notick;
                 }
 
