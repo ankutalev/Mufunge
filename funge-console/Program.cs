@@ -30,7 +30,7 @@ namespace funge_console
                 {"--befunge93", kunteynir.Resolve<Befunge93> },
                 {"--funge98", kunteynir.Resolve<Befunge98> },
                 {"--unefunge", kunteynir.Resolve<Unefunge> },
-
+                {"--trefunge", kunteynir.Resolve<Trefunge> },
             };
             
             foreach (var s in args)

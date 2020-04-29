@@ -10,7 +10,7 @@ Mufunge has **full** compablity with last [Funge Standard](https://catseye.tc/vi
 
 # Supported Versions
 
-Mufunge now can works with Befunge-93, Funge-98 and Unefunge versions, but Trefunge support will be added soon.
+Mufunge now can works with Befunge-93, Funge-98, Unefunge, Trefunge versions. You're welcome to implements more dimensions versions via pull request =)
 
 # Tested
 
