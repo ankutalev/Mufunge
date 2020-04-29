@@ -6,7 +6,7 @@ Toolkit contains interpreters, console and GUI debuggers (debuggers not yet done
 
 # Compability level
 
-Mufunge has **fully** compablity with last [Funge Standard](https://catseye.tc/view/funge-98/doc/funge98.markdown)  
+Mufunge has **full** compablity with last [Funge Standard](https://catseye.tc/view/funge-98/doc/funge98.markdown)  
 
 # Supported Versions
 
