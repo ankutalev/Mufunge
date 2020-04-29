@@ -41,4 +41,22 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
         {
         }
     }
+    
+    [ContainerElement, Trefunge]
+    public class MoveHigh : MoveCommand
+    {
+        public MoveHigh() : base('h')
+        {
+        }
+    }
+    
+    [ContainerElement, Trefunge]
+    public class MoveLow : MoveCommand
+    {
+        public MoveLow() : base('l')
+        {
+        }
+    }
+    
+    
 }
