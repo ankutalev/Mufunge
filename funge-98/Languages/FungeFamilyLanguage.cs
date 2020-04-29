@@ -42,9 +42,10 @@ namespace funge_98.Languages
             return null;
         }
 
-        public string RunProgram(string filename, bool onlyStandardExtension)
+        public string RunProgram(string[] args, bool onlyStandardExtension)
         {
-            _executionContext.InitField(_parser.GetSourceCode(filename,onlyStandardExtension));
+            _executionContext.InitField(_parser.GetSourceCode(args[0], onlyStandardExtension));
+            _executionContext.ProgramArguments = args;
             string error = null;
             while (error == null && _executionContext.InterpreterAlive)
             {

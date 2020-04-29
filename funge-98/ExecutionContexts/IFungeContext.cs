@@ -64,6 +64,7 @@ namespace funge_98.ExecutionContexts
         public int ExitCode { get; set; }
         public static string HandPrint => "Mufunge";
         public static int NumericVersion => 100;
+        public string[] ProgramArguments { get; set; }
 
         public void InitField(IEnumerable<string> source) => _field.InitField(source);
 
