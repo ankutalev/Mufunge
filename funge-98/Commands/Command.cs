@@ -29,7 +29,10 @@ namespace funge_98.Commands
             {
                 if (fungeContext.Settings.WarnIfCommandNotSupported == OptionStatus.Enable)
                 {
-                    return $"{fungeContext.Version} not supporting  {Name} command";
+                    return $"{fungeContext.Version} not supporting  {Name} command at " +
+                           $"x: {fungeContext.CurrentThread.CurrentPosition.X} " + 
+                           $"y: {fungeContext.CurrentThread.CurrentPosition.Y} " + 
+                           $"z: {fungeContext.CurrentThread.CurrentPosition.Z} ";
                 }
 
                 fungeContext.CurrentThreadDeltaVector = fungeContext.CurrentThreadDeltaVector.Reflect();

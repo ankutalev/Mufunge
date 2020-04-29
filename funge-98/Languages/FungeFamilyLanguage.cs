@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using funge_98.Commands;
@@ -23,13 +24,13 @@ namespace funge_98.Languages
         
         public int Ticks { get; set; }
 
-        public string NextStep()    
+        public string NextStep()
         {
-            
+            string res = null;
             foreach (var thread in _executionContext.Threads)
             {
                 _executionContext.CurrentThread = thread;
-                var res = ICommand.Notick;
+                res = ICommand.Notick;
                 while (res == ICommand.Notick)
                 {
                     var commandName = _executionContext.GetCellValue(_executionContext.CurrentThread.CurrentPosition);
@@ -41,7 +42,7 @@ namespace funge_98.Languages
             Ticks++;
             _executionContext.Threads =_executionContext.SpawnedThreads.Concat(_executionContext.Threads.Where(t=>t.Alive)).ToList();
             _executionContext.SpawnedThreads.Clear();
-            return null;
+            return res;
         }
 
         public string RunProgram(string[] args, bool onlyStandardExtension)

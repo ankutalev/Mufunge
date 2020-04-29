@@ -29,6 +29,8 @@ namespace funge_console
             {
                 {"--befunge93", kunteynir.Resolve<Befunge93> },
                 {"--funge98", kunteynir.Resolve<Befunge98> },
+                {"--unefunge", kunteynir.Resolve<Unefunge> },
+
             };
             
             foreach (var s in args)
@@ -50,7 +52,6 @@ namespace funge_console
             {
                 Console.WriteLine($"Error : {result}");
             }
-
             Environment.Exit(cp.ExitCode);
         }
 

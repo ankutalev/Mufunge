@@ -30,7 +30,7 @@ namespace funge_98.Commands.Befunge93Commands.MoveCommand
                 _ => _directions[Name]
             };
 
-            if (fungeContext.Dimension == 1)
+            if (fungeContext.Dimension == 1 && Name == '?')
             {
                 newDelta =  _directions.ToArray()[new Random().Next(0, 2)].Value;
             }
