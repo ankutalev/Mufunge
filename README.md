@@ -21,4 +21,13 @@ Mufunge passed all tests of [Mycology project](https://github.com/Deewiant/Mycol
 Mufunge now supports only NULL fingerprint, supporting of [all standard fingerprints](http://rcfunge98.com/rcsfingers.html) planned.
 
 
+# Usage
+
+mufunge program_file [opt1] [opt2] ...
+### Options
+-h,--h, -help, --help  **display help**
+
+--ignore-ext  **forces Mufunge to execute funge code from file with any extension (by default standard only extension allowed**
+
+--unefunge, --befunge93, --funge98, --trefunge  **runs code in chosen standard (--funge98 default)**
 
